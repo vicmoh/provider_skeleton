@@ -10,7 +10,7 @@ project and add the dependency like below:
 
 ```
 dependencies:
-  plugin1:
+  provider_skeleton:
     git:
-      url: git:https://github.com/vicmoh/provider_skeleton
+      url: git://github.com/vicmoh/provider_skeleton
 ```
