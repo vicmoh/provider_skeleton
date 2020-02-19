@@ -12,5 +12,5 @@ project and add the dependency like below:
 dependencies:
   provider_skeleton:
     git:
-      url: git://github.com/vicmoh/provider_skeleton
+      url: git://github.com/vicmoh/provider_skeleton.git
 ```
