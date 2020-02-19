@@ -1,7 +1,7 @@
 # Provider Skeleton for App Architecture
 
 This package is used for the provider skeleton architect layout to
-build a flutter application.
+build a Flutter application.
 
 ## Installation
 
