@@ -3,10 +3,11 @@
 library provider_skeleton;
 
 /// The main libraries to be exported.
-export './list_view_logic.dart';
-export './logics.dart';
-export './model.dart';
-export './new_state.dart';
-export './set_state_callback.dart';
-export './view_logic.dart';
-export './watch_state.dart';
+export './src/list_view_logic.dart';
+export './src/logics.dart';
+export './src/model.dart';
+export './src/navigate.dart';
+export './src/new_state.dart';
+export './src/set_state_callback.dart';
+export './src/view_logic.dart';
+export './src/watch_state.dart';
