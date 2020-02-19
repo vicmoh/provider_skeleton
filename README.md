@@ -1,4 +1,4 @@
-# Provider Skeleton for App Architecture
+# Provider Skeleton for Flutter App Architecture
 
 This package is used for the provider skeleton architect layout to
 build a Flutter application.
