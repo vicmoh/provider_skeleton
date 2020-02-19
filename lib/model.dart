@@ -6,8 +6,6 @@
 
 import 'package:flutter/material.dart';
 
-typedef SetState(Function() callback);
-
 /// The Model Interface for the json serialize.
 abstract class ModelInterface {
   ModelInterface.fromJson(Map<String, dynamic> json, {@required String id});

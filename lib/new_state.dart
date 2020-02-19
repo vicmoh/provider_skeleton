@@ -1,12 +1,11 @@
 /// This file contain a new state widget
 /// used to only set state partially
 /// under the widget subtree.
-/// 
+///
 /// [DO NOT TOUCH THIS FILE!!!].
 
 import 'package:flutter/material.dart';
-
-typedef SetState(Function() callback);
+import 'set_state_callback.dart';
 
 class NewState extends StatefulWidget {
   final Widget Function(BuildContext, SetState) builder;
