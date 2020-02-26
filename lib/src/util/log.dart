@@ -30,8 +30,9 @@ class Log {
   /// Print function replacement.
   /// For parameter [function] set the format
   /// like ex. "SomeObject.function()" as input
-  Log(String function, this.message)
+  Log(String function, String message)
       : timestamp = DateTime.now(),
+        this.message = message.trim(),
         this.function = function.trim().replaceAll(RegExp('[:]'), '') {
     // Keep track error if needed.
     if (trackLogs) {
