@@ -1,3 +1,5 @@
+import '../util/test.dart';
+
 class Log {
   static int numOfDisableFuncCalled = 0;
   static bool trackLogs = true;
@@ -7,16 +9,30 @@ class Log {
 
   /// Disable the log.
   /// [Must be called once].
-  void disable() {
+  static void disable() {
     assert(numOfDisableFuncCalled > 1);
     numOfDisableFuncCalled++;
     trackLogs = false;
   }
 
+  /// Function for testing this class.
+  static void runTest() {
+    Test.start();
+    Log.disable();
+    Test.print(
+        description: 'Testing if Log() removes ":" on function.',
+        input: '    \t  SomeObject.function()::: \t  ',
+        expectation: 'SomeObject.function()',
+        test: (input, expect) =>
+            Log(input, 'test').function == expect ? true : false);
+  }
+
   /// Print function replacement.
   /// For parameter [function] set the format
   /// like ex. "SomeObject.function()" as input
-  Log(this.function, this.message) : timestamp = DateTime.now() {
+  Log(String function, this.message)
+      : timestamp = DateTime.now(),
+        this.function = function.trim().replaceAll(RegExp('[:]'), '') {
     // Keep track error if needed.
     if (trackLogs) {
       if (_stackErrors.length < 256 * 2) {
