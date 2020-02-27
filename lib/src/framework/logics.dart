@@ -47,8 +47,8 @@ class Logics {
   /// with [MultiProvider] and pass in the
   /// getter [providers] of this class.
   /// By default this function is provided in [factory]
-  /// methods. If [onRootLevel] is set, then all
-  /// data is access to the same pointer.
+  /// methods. If [isSingleton] is set, then all
+  /// data is access to the same pointer when is provided.
   static void provide<T extends ViewLogic>(
     T handler, {
     bool isSingleton = false,
