@@ -46,11 +46,14 @@ class Logics {
   /// Once model are provided. Wrap the [MaterialApp]
   /// with [MultiProvider] and pass in the
   /// getter [providers] of this class.
+  /// By default this function is provided in [factory]
+  /// methods. If [onRootLevel] is set, then all
+  /// data is access to the same pointer.
   static void provide<T extends ViewLogic>(
     T handler, {
-    bool isFactory = false,
+    bool onRootLevel = false,
   }) {
-    if (!isFactory)
+    if (!onRootLevel)
       _getIt.registerSingleton<T>(handler);
     else
       _getIt.registerFactory<T>(() => handler);
