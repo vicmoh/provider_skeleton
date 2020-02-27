@@ -51,9 +51,9 @@ class Logics {
   /// data is access to the same pointer.
   static void provide<T extends ViewLogic>(
     T handler, {
-    bool onRootLevel = false,
+    bool isSingleton = false,
   }) {
-    if (!onRootLevel)
+    if (!isSingleton)
       _getIt.registerSingleton<T>(handler);
     else
       _getIt.registerFactory<T>(() => handler);
