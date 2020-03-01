@@ -1,5 +1,6 @@
 library provider_skeleton;
 
+export './src/extension/date_extension.dart';
 export './src/extension/string_extension.dart';
 export './src/extension/number_extension.dart';
 export './src/util/util.dart';
