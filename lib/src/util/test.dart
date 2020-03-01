@@ -38,7 +38,7 @@ class Test<I, E> {
     String res = '___________________\n';
     res +=
         'FINAL RESULT:  $_totalPassCase/${_totalPassCase + _totalFailCase}\n';
-    res += 'FAILED TEST CASES: $_setOfAllFailedTestCases';
+    res += 'FAILED TEST CASES: ${_setOfAllFailedTestCases.toList()}';
     print(res);
   }
 
@@ -93,7 +93,7 @@ class Test<I, E> {
     _numberOfTotalTest++;
     String str = '';
     str += '_________________________\n';
-    str += 'ID: $_numberOfTotalTest';
+    str += 'ID: $_numberOfTotalTest\n';
     str += 'DESCRIPTION: $description\n';
     str += 'INPUT: $input\n';
     str += 'EXPECTATION: $expectation\n';
