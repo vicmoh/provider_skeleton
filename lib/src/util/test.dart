@@ -1,18 +1,18 @@
 import 'package:meta/meta.dart';
 
-class Test<T> {
+class Test<I, E> {
   /// Description of what you are testing.
   final String description;
 
   /// The input test.
-  final T input;
+  final I input;
 
   /// The test expectation.
-  final T expectation;
+  final E expectation;
 
   /// Test function call back.
   /// Return [true] if expectation is match with input.
-  final bool Function(T input, T expect) test;
+  final bool Function(I input, E expect) test;
 
   /// Number of total fail case.
   static int _totalFailCase = 0;
@@ -25,6 +25,13 @@ class Test<T> {
   static void start() {
     _totalFailCase = 0;
     _totalPassCase = 0;
+  }
+
+  static void end() {
+    String res = '___________________\n';
+    res +=
+        'FINAL RESULT:  $_totalPassCase/${_totalPassCase + _totalFailCase}\n';
+    print(res);
   }
 
   /// Test object that will determine if the test pass
@@ -42,8 +49,11 @@ class Test<T> {
     String str = '___________________\n';
     str += 'DESCRIPTION: $description\n';
     str += 'INPUT: $input\n';
-    str += 'EXPECTATION $expectation\n';
-    bool outcome = test(this.input, this.expectation);
+    str += 'EXPECTATION: $expectation\n';
+    // Testing
+    bool outcome = false;
+    if (test != null) outcome = test(this.input, this.expectation);
+    // Show outcome
     if (outcome) {
       _totalPassCase++;
       str += 'RESULT: PASS\n';
@@ -51,7 +61,6 @@ class Test<T> {
       _totalFailCase++;
       str += 'RESULT: FAIL\n';
     }
-    str += '$_totalPassCase/${_totalPassCase + _totalFailCase}\n';
     print(str);
   }
 
