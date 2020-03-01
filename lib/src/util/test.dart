@@ -1,3 +1,4 @@
+import 'package:colorize/colorize.dart';
 import 'package:meta/meta.dart';
 
 class Test<I, E> {
@@ -26,6 +27,15 @@ class Test<I, E> {
   // A set of all fail test cases.
   static Set<int> _setOfAllFailedTestCases = {};
 
+  /// Green Color string for coloring that bash
+  static const GREEN_COLOR = "\033[0;31m";
+
+  /// Red color string for coloring the bash.
+  static const RED_COLOR = '\033[1;31m';
+
+  /// Set to no color for coloring tha bash.
+  static const NO_COLOR = '\033[1;31m';
+
   /// Set the count checking to 0.
   /// Call this function to start your batch case.
   static void start() {
@@ -39,7 +49,10 @@ class Test<I, E> {
     res +=
         'FINAL RESULT:  $_totalPassCase/${_totalPassCase + _totalFailCase}\n';
     res += 'FAILED TEST CASES: ${_setOfAllFailedTestCases.toList()}';
-    print(res);
+    if (_setOfAllFailedTestCases.toList().length > 0)
+      print(Colorize(res)..red());
+    else
+      print(Colorize(res)..green());
   }
 
   /// This in batches. It will print and determine if
@@ -91,6 +104,7 @@ class Test<I, E> {
     @required bool Function(I input, E expect) test,
   }) {
     _numberOfTotalTest++;
+    bool isPass = false;
     String str = '';
     str += '_________________________\n';
     str += 'ID: $_numberOfTotalTest\n';
@@ -103,14 +117,19 @@ class Test<I, E> {
       outcome = test(this.inputs.first, this.expectations.first);
     // Show outcome.
     if (outcome) {
+      isPass = true;
       _totalPassCase++;
       str += 'RESULT: PASS\n';
+      isPass = true;
     } else {
       _totalFailCase++;
       str += 'RESULT: FAIL\n';
       _setOfAllFailedTestCases.add(_numberOfTotalTest);
     }
-    print(str);
+    // Print the with color or no color.
+    if (isPass) {
+      print(Colorize(str)..green());
+    } else if (!isPass) print(Colorize(str)..red());
   }
 
   @override
