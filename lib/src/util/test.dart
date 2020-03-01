@@ -20,6 +20,12 @@ class Test<I, E> {
   /// Number of total pass case.
   static int _totalPassCase = 0;
 
+  /// The total number of test.
+  static int _numberOfTotalTest = 0;
+
+  // A set of all fail test cases.
+  static Set<int> _setOfAllFailedTestCases = {};
+
   /// Set the count checking to 0.
   /// Call this function to start your batch case.
   static void start() {
@@ -32,6 +38,7 @@ class Test<I, E> {
     String res = '___________________\n';
     res +=
         'FINAL RESULT:  $_totalPassCase/${_totalPassCase + _totalFailCase}\n';
+    res += 'FAILED TEST CASES: $_setOfAllFailedTestCases';
     print(res);
   }
 
@@ -83,8 +90,10 @@ class Test<I, E> {
     @required E expectation,
     @required bool Function(I input, E expect) test,
   }) {
+    _numberOfTotalTest++;
     String str = '';
     str += '_________________________\n';
+    str += 'ID: $_numberOfTotalTest';
     str += 'DESCRIPTION: $description\n';
     str += 'INPUT: $input\n';
     str += 'EXPECTATION: $expectation\n';
@@ -99,6 +108,7 @@ class Test<I, E> {
     } else {
       _totalFailCase++;
       str += 'RESULT: FAIL\n';
+      _setOfAllFailedTestCases.add(_numberOfTotalTest);
     }
     print(str);
   }
