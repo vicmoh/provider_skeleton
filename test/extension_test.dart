@@ -15,20 +15,10 @@ void main(List<String> args) {
       input: 'hello123 world!',
       expectation: '123',
       test: (input, expect) => input.toNumOnlyString() == expect);
-  Test<String, bool>.single(
-      description: 'Testing isAlphanumeric().',
-      input: 'testing123',
-      expectation: true,
-      test: (input, expect) => input.isAlphanumeric() == expect);
-  Test<String, bool>.single(
-      description: 'Testing isAlphanumeric().',
-      input: 'testing-123',
-      expectation: false,
-      test: (input, expect) => input.isAlphanumeric() == expect);
-  Test<String, bool>.single(
-      description: 'Testing isAlphanumeric().',
-      input: 'testing 123',
-      expectation: false,
+  Test<String, bool>.batch(
+      description: 'Testing is number alphanumeric',
+      inputs: ['testing123', 'testing-123', 'testing 123'],
+      expectations: [true, false, false],
       test: (input, expect) => input.isAlphanumeric() == expect);
   Test<String, String>.single(
       description: 'Testing ellipsis.',
@@ -45,65 +35,22 @@ void main(List<String> args) {
       input: 'The hello world and the money in the bucket',
       expectation: 'The Hello World and the Money in the Bucket',
       test: (input, expect) => input.toTitleCase() == expect);
-  Test<int, String>.single(
-      description: 'Testing toShortForm().',
-      input: 1000,
-      expectation: '1k',
+  Test<num, String>.batch(
+      description: 'Testing short form numbers.',
+      inputs: [1000, 999.9, 999999, 999500, 1500000],
+      expectations: ['1k', '999.9', '999.9k', '999.5k', '1.5m'],
       test: (input, expect) => input.toShortForm() == expect);
-  Test<num, String>.single(
-      description: 'Testing toShortForm().',
-      input: 999.9,
-      expectation: '999.9',
-      test: (input, expect) => input.toShortForm() == expect);
-  Test<int, String>.single(
-      description: 'Testing toShortForm().',
-      input: 1000,
-      expectation: '1k',
-      test: (input, expect) => input.toShortForm() == expect);
-  Test<int, String>.single(
-      description: 'Testing toShortForm().',
-      input: 999999,
-      expectation: '999.9k',
-      test: (input, expect) => input.toShortForm() == expect);
-  Test<int, String>.single(
-      description: 'Testing toShortForm().',
-      input: 999500,
-      expectation: '999.5k',
-      test: (input, expect) => input.toShortForm() == expect);
-  Test<int, String>.single(
-      description: 'Testing toShortForm().',
-      input: 1500000,
-      expectation: '1.5m',
-      test: (input, expect) => input.toShortForm() == expect);
-  Test<String, bool>.single(
+  Test<String, bool>.batch(
       description: 'Check if email is a valid format.',
-      input: 'teddy_bear_master@hotmail.com',
-      expectation: true,
-      test: (input, expect) => input.isValidEmailFormat() == expect);
-  Test<String, bool>.single(
-      description: 'Check if email is a valid format.',
-      input: 'teddy_bear_master_hotmail.com',
-      expectation: false,
-      test: (input, expect) => input.isValidEmailFormat() == expect);
-  Test<String, bool>.single(
-      description: 'Check if email is a valid format.',
-      input: 'teddy_bear_master@hotmail.',
-      expectation: false,
-      test: (input, expect) => input.isValidEmailFormat() == expect);
-  Test<String, bool>.single(
-      description: 'Check if email is a valid format.',
-      input: 'teddy-bear-master@hotmail.i',
-      expectation: true,
-      test: (input, expect) => input.isValidEmailFormat() == expect);
-  Test<String, bool>.single(
-      description: 'Check if email is a valid format.',
-      input: 'hotmail@i.i',
-      expectation: true,
-      test: (input, expect) => input.isValidEmailFormat() == expect);
-  Test<String, bool>.single(
-      description: 'Check if email is a valid format.',
-      input: '@i.i',
-      expectation: false,
+      inputs: [
+        'teddy_bear_master@hotmail.co',
+        'teddy_bear_master_hotmail.com',
+        'teddy_bear_master@hotmail.',
+        'teddy-bear-master@hotmail.i',
+        'hotmail@i.i',
+        '@i.i'
+      ],
+      expectations: [true, false, false, true, true, false],
       test: (input, expect) => input.isValidEmailFormat() == expect);
   Test.end();
 }
