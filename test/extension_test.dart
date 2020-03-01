@@ -2,6 +2,7 @@ import 'package:provider_skeleton/src/util/test.dart';
 
 import '../lib/src/extension/string_extension.dart';
 import '../lib/src/extension/number_extension.dart';
+import '../lib/src/extension/date_extension.dart';
 
 void main(List<String> args) {
   Test.start();
@@ -52,5 +53,24 @@ void main(List<String> args) {
       ],
       expectations: [true, false, false, true, true, false],
       test: (input, expect) => input.isValidEmailFormat() == expect);
+  Test<DateTime, String>.single(
+      description: 'Testing get month for date time.',
+      input: DateTime(2020, 12, 13),
+      expectation: 'Dec',
+      test: (input, expect) => input.getMonth() == expect);
+  Test<DateTime, String>.single(
+      description: 'Testing get month in long format for date time.',
+      input: DateTime(2020, 1, 13),
+      expectation: 'January',
+      test: (input, expect) => input.getMonth(longFormat: true) == expect);
+  Test<DateTime, String>.batch(
+      description: 'Testing 12 hour clock string.',
+      inputs: [
+        DateTime(2020, 1, 1, 2, 0, 0),
+        DateTime(2020, 1, 1, 20, 0, 0),
+        DateTime(2020, 1, 1, 15, 0, 0)
+      ],
+      expectations: ['2:00 AM', '8:00 PM', '3:00 PM'],
+      test: (input, expect) => input.getTime(isTwelveHour: true) == expect);
   Test.end();
 }

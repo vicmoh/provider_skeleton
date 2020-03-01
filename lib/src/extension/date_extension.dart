@@ -39,7 +39,7 @@ extension DateTimeExtension on DateTime {
   /// By default it will return 24 hour clock string.
   /// For ex. '20:00' if [isTwelveHourClock] is true,
   /// it will return '8:00 PM'.
-  String getTime({bool isTwelveHourClock = false}) {
+  String getTime({bool isTwelveHour = false}) {
     var hour = DateTime.now().hour.toString();
     var minute = DateTime.now().minute.toString();
     if (this != null) {
@@ -47,7 +47,7 @@ extension DateTimeExtension on DateTime {
       minute = this.minute.toString();
     }
     // Check if it is twenty hour clock.
-    if (isTwelveHourClock) {
+    if (isTwelveHour) {
       String amPmString = 'AM';
       int hour12 = this.hour;
       int min12 = this.minute;
@@ -101,7 +101,7 @@ extension DateTimeExtension on DateTime {
 
   /// Get the full month, date and time, for ex. 'Jan 7 at 12:30 PM'.
   String toMonthDateAtTime() {
-    return '${this.getMonth(longFormat: true)} ${this.day} at ${this.getTime(isTwelveHourClock: true)}';
+    return '${this.getMonth(longFormat: true)} ${this.day} at ${this.getTime(isTwelveHour: true)}';
   }
 
   /// Get a complete readable string of the date time
