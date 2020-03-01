@@ -1,7 +1,12 @@
 import 'package:colorize/colorize.dart';
 import 'package:meta/meta.dart';
 
+enum _TestType { batch, single }
+
 class Test<I, E> {
+  /// Timestamp of the test.
+  final DateTime timestamp;
+
   /// Description of what you are testing.
   final String description;
 
@@ -11,9 +16,19 @@ class Test<I, E> {
   /// The test expectation.
   final List<E> expectations;
 
+  /// Determine if test case pass of failing.
+  get isSuccess => _isSuccess;
+  bool _isSuccess = false;
+
+  /// Determine if it is batch test.
+  final _TestType _type;
+
   /// Test function call back.
   /// Return [true] if expectation is match with input.
   final bool Function(I input, E expect) test;
+
+  /// Used for determining if the print statement is short format.
+  static bool _isShortOutput = false;
 
   /// Number of total fail case.
   static int _totalFailCase = 0;
@@ -38,17 +53,19 @@ class Test<I, E> {
 
   /// Set the count checking to 0.
   /// Call this function to start your batch case.
-  static void start() {
+  static void start({bool isShortOutput = false}) {
+    _isShortOutput = isShortOutput;
     _totalFailCase = 0;
     _totalPassCase = 0;
   }
 
   /// Show the result of the test.
   static void end() {
-    String res = '___________________\n';
+    print(Colorize('_______________________________________\n')..lightGray());
+    String res = '';
     res +=
         'FINAL RESULT:  $_totalPassCase/${_totalPassCase + _totalFailCase}\n';
-    res += 'FAILED TEST CASES: ${_setOfAllFailedTestCases.toList()}';
+    res += 'LIST OF FAILED TEST CASES #: ${_setOfAllFailedTestCases.toList()}';
     if (_setOfAllFailedTestCases.toList().length > 0)
       print(Colorize(res)..red());
     else
@@ -62,15 +79,19 @@ class Test<I, E> {
     @required this.inputs,
     @required this.expectations,
     @required this.test,
-  }) {
+  })  : this._type = _TestType.batch,
+        this.timestamp = DateTime.now() {
     assert(!(this.description == null &&
         this.expectations == null &&
         this.inputs == null &&
         this.test == null));
     if (this.inputs.length != this.expectations.length) assert(false);
+    print(Colorize('Batch test: ')
+      ..underline()
+      ..cyan());
     for (int x = 0; x < this.inputs.length; x++)
-      Test.single(
-          description: 'Batch test: ${this.description}',
+      _run(
+          description: '$description',
           input: this.inputs[x],
           expectation: this.expectations[x],
           test: this.test);
@@ -83,14 +104,16 @@ class Test<I, E> {
     @required I input,
     @required E expectation,
     @required this.test,
-  })  : this.inputs = [input],
+  })  : this._type = _TestType.single,
+        this.timestamp = DateTime.now(),
+        this.inputs = [input],
         this.expectations = [expectation] {
     assert(!(this.description == null &&
         this.test == null &&
         input == null &&
         expectation == null));
     _run(
-        description: this.description,
+        description: '$description',
         input: input,
         expectation: expectation,
         test: this.test);
@@ -104,33 +127,54 @@ class Test<I, E> {
     @required bool Function(I input, E expect) test,
   }) {
     _numberOfTotalTest++;
-    bool isPass = false;
     String str = '';
-    str += '_________________________\n';
-    str += 'ID: $_numberOfTotalTest\n';
-    str += 'DESCRIPTION: $description\n';
-    str += 'INPUT: $input\n';
-    str += 'EXPECTATION: $expectation\n';
+    if (!_isShortOutput) {
+      str += '_________________________\n';
+      str += 'ID: $_numberOfTotalTest\n';
+      str += 'DESCRIPTION: $description\n';
+      str += 'INPUT: $input\n';
+      str += 'EXPECTATION: $expectation\n';
+    } else {
+      if (this._type == _TestType.single)
+        print(Colorize('Single test: ')
+          ..underline()
+          ..yellow());
+      str +=
+          '\t#$_numberOfTotalTest: $description Input with "$input". Expected "$expectation".';
+    }
+
     // Testing.
     bool outcome = false;
-    if (test != null)
-      outcome = test(this.inputs.first, this.expectations.first);
+    if (test != null) outcome = test(input, expectation);
     // Show outcome.
     if (outcome) {
-      isPass = true;
+      _isSuccess = true;
       _totalPassCase++;
-      str += 'RESULT: PASS\n';
-      isPass = true;
+      if (!_isShortOutput) str += 'RESULT: PASS\n';
     } else {
+      _isSuccess = false;
       _totalFailCase++;
-      str += 'RESULT: FAIL\n';
+      if (!_isShortOutput) str += 'RESULT: FAIL\n';
       _setOfAllFailedTestCases.add(_numberOfTotalTest);
     }
+
     // Print the with color or no color.
-    if (isPass) {
+    if (_isSuccess) {
+      str += ' PASS.';
       print(Colorize(str)..green());
-    } else if (!isPass) print(Colorize(str)..red());
+    } else if (!_isSuccess) {
+      str += ' FAIL.';
+      print(Colorize(str)..red());
+    }
   }
+
+  Map toJson() => {
+        'description': this.description,
+        'inputs': this.inputs,
+        'expectation': this.expectations,
+        'timestamp': this.timestamp.toIso8601String(),
+        'pass': this._isSuccess,
+      };
 
   @override
   String toString() => super.toString();

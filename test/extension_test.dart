@@ -5,7 +5,7 @@ import '../lib/src/extension/number_extension.dart';
 import '../lib/src/extension/date_extension.dart';
 
 void main(List<String> args) {
-  Test.start();
+  Test.start(isShortOutput: true);
   Test<String, String>.single(
       description: 'Testing if string has access like list.',
       input: 'test string',
@@ -17,7 +17,7 @@ void main(List<String> args) {
       expectation: '123',
       test: (input, expect) => input.toNumOnlyString() == expect);
   Test<String, bool>.batch(
-      description: 'Testing is number alphanumeric',
+      description: 'Testing is number alphanumeric.',
       inputs: ['testing123', 'testing-123', 'testing 123'],
       expectations: [true, false, false],
       test: (input, expect) => input.isAlphanumeric() == expect);
