@@ -19,7 +19,7 @@ class Log {
   static void runTest() {
     Test.start();
     Log.disable();
-    Test.print(
+    Test.single(
         description: 'Testing if Log() removes ":" on function.',
         input: '    \t  SomeObject.function()::: \t  ',
         expectation: 'SomeObject.function()',
