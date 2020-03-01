@@ -95,14 +95,11 @@ extension DateTimeExtension on DateTime {
 
   /// Get day and time in the format where
   /// "<day> <time>" for ex. "Wed 11:11".
-  String toDayAndTime() {
-    return this.getDay() + " " + this.getTime();
-  }
+  String toDayAndTime() => this.getDay() + " " + this.getTime();
 
   /// Get the full month, date and time, for ex. 'Jan 7 at 12:30 PM'.
-  String toMonthDateAtTime() {
-    return '${this.getMonth(longFormat: true)} ${this.day} at ${this.getTime(isTwelveHour: true)}';
-  }
+  String toMonthDateAtTime() =>
+      '${this.getMonth(longFormat: true)} ${this.day} at ${this.getTime(isTwelveHour: true)}';
 
   /// Get a complete readable string of the date time
   /// in format of "<month> <day>, <year>" for ex.
