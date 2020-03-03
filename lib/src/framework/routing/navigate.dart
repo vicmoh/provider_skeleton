@@ -8,8 +8,20 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
+import 'package:provider_skeleton/provider_skeleton.dart';
 
-import 'view_logic.dart';
+class FromContext {
+  /// The context of the widget.
+  final BuildContext context;
+
+  /// Class for navigating the scaffold pages.
+  static FromContext of(BuildContext context) => FromContext(of: context);
+
+  /// Class for navigating scaffold pages.
+  FromContext({@required BuildContext of})
+      : this.context = of,
+        assert(context != null);
+}
 
 /// This class is used to create a navigator
 /// where it will also provide models to

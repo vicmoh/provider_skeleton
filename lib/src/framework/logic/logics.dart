@@ -10,8 +10,6 @@ import 'package:provider/single_child_widget.dart';
 
 import 'view_logic.dart';
 
-typedef void ProvideCallback<T>(T handler, {bool isFactory});
-
 class Logics {
   /// Allows you to register the class type and request it
   // from anywhere where you have access to the container.

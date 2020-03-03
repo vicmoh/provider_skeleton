@@ -13,9 +13,17 @@ import 'package:flutter/material.dart';
 /// [asError] is when an error occurred.
 enum ViewState { asLoading, asComplete, asError }
 
-/// This is class model that is used as the view model.
-/// View models are extended with [ViewLogic].
 abstract class ViewLogic extends ChangeNotifier {
+  /// This is class model that is used as the view model.
+  /// View models are extended with [ViewLogic].
+  ViewLogic() {
+    this.initState();
+  }
+
+  /// The initial state of the view logic
+  /// when the the logic first created.
+  void initState() {}
+
   /// Get the current state of the [ViewLogic].
   ViewState get currentState => _currentState ?? ViewState.asComplete;
   ViewState _currentState = ViewState.asComplete;

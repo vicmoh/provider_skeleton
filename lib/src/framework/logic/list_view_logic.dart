@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:provider_skeleton/src/framework/model/model.dart';
+
 /// This file one of the main foundation
 /// where it is used for creating the list view
 /// models of the application.
@@ -8,7 +10,6 @@ import 'dart:async';
 ///
 /// [DO NOT TOUCH THIS FILE!!!]
 
-import 'model.dart';
 import 'view_logic.dart';
 
 abstract class ListViewLogic<T extends Model> extends ViewLogic {
