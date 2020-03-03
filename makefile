@@ -12,8 +12,5 @@ package:
 # Testing functions
 #---------------------------------------------------------------------
 
-test: extension_test
-
-extension_test:
-	cd test; dart extension_test.dart;
-
+test: package
+	cd test; dart test.dart;

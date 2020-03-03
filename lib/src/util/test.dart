@@ -1,5 +1,6 @@
 import 'package:colorize/colorize.dart';
 import 'package:meta/meta.dart';
+import '../extension/string_extension.dart';
 
 enum _TestType { batch, single }
 
@@ -28,7 +29,7 @@ class Test<I, E> {
   final bool Function(I input, E expect) test;
 
   /// Used for determining if the print statement is short format.
-  static bool _isShortOutput = false;
+  static bool _isShortOutput = true;
 
   /// Number of total fail case.
   static int _totalFailCase = 0;
@@ -53,23 +54,25 @@ class Test<I, E> {
 
   /// Set the count checking to 0.
   /// Call this function to start your batch case.
-  static void start({bool isShortOutput = false}) {
+  static void init({bool isShortOutput = true}) {
     _isShortOutput = isShortOutput;
-    _totalFailCase = 0;
-    _totalPassCase = 0;
   }
 
   /// Show the result of the test.
-  static void end() {
+  static void showFinalResult() {
     print(Colorize('_______________________________________\n')..lightGray());
     String res = '';
     res +=
-        'FINAL RESULT:  $_totalPassCase/${_totalPassCase + _totalFailCase}\n';
-    res += 'LIST OF FAILED TEST CASES #: ${_setOfAllFailedTestCases.toList()}';
-    if (_setOfAllFailedTestCases.toList().length > 0)
+        'Final result: ${_numberOfTotalTest - _setOfAllFailedTestCases.length}/$_numberOfTotalTest\n';
+    if (_setOfAllFailedTestCases.toList().length > 0) {
+      res +=
+          'Failed test cases: ${_setOfAllFailedTestCases.map((caseId) => '#' + caseId.toString()).toList()}';
       print(Colorize(res)..red());
-    else
+    } else {
+      res += 'Failed test cases: None';
       print(Colorize(res)..green());
+    }
+    print('');
   }
 
   /// This in batches. It will print and determine if
@@ -126,6 +129,7 @@ class Test<I, E> {
     @required E expectation,
     @required bool Function(I input, E expect) test,
   }) {
+    description = description.trim().toSentenceCase(withPeriod: true);
     _numberOfTotalTest++;
     String str = '';
     if (!_isShortOutput) {
@@ -143,31 +147,25 @@ class Test<I, E> {
           '\t#$_numberOfTotalTest: $description Input with "$input". Expected "$expectation".';
     }
 
-    // Testing.
-    bool outcome = false;
-    if (test != null) outcome = test(input, expectation);
-    // Show outcome.
-    if (outcome) {
+    // Testing outcome.
+    if (test != null) _isSuccess = test(input, expectation);
+    if (_isSuccess) {
       _isSuccess = true;
       _totalPassCase++;
-      if (!_isShortOutput) str += 'RESULT: PASS\n';
+      if (!_isShortOutput) str += 'RESULT: PASS';
+      if (_isShortOutput) str += ' PASS.';
+      print(Colorize(str)..green());
     } else {
       _isSuccess = false;
       _totalFailCase++;
-      if (!_isShortOutput) str += 'RESULT: FAIL\n';
-      _setOfAllFailedTestCases.add(_numberOfTotalTest);
-    }
-
-    // Print the with color or no color.
-    if (_isSuccess) {
-      str += ' PASS.';
-      print(Colorize(str)..green());
-    } else if (!_isSuccess) {
-      str += ' FAIL.';
+      if (!_isShortOutput) str += 'RESULT: FAIL';
+      if (_isShortOutput) str += ' FAIL.';
       print(Colorize(str)..red());
+      _setOfAllFailedTestCases.add(_numberOfTotalTest);
     }
   }
 
+  /// Create JSON map of this object.
   Map toJson() => {
         'description': this.description,
         'inputs': this.inputs,

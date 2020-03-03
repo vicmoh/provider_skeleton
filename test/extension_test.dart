@@ -1,11 +1,9 @@
-import 'package:provider_skeleton/src/util/test.dart';
-
+import '../lib/src/util/test.dart';
 import '../lib/src/extension/string_extension.dart';
 import '../lib/src/extension/number_extension.dart';
 import '../lib/src/extension/date_extension.dart';
 
-void main(List<String> args) {
-  Test.start(isShortOutput: true);
+void extensionTest() {
   Test<String, String>.single(
       description: 'Testing if string has access like list.',
       input: 'test string',
@@ -72,5 +70,24 @@ void main(List<String> args) {
       ],
       expectations: ['2:00 AM', '8:00 PM', '3:00 PM'],
       test: (input, expect) => input.getTime(isTwelveHour: true) == expect);
-  Test.end();
+  Test<String, String>.batch(
+      description: 'Test sentence case string',
+      inputs: [
+        'hello World!',
+        'hello World',
+        'hello World:',
+        'hello World..',
+        'hello World?',
+        'Test sentence case string'
+      ],
+      expectations: [
+        'Hello World!',
+        'Hello World.',
+        'Hello World:',
+        'Hello World..',
+        'Hello World?',
+        'Test sentence case string.'
+      ],
+      test: (input, expect) =>
+          input.toSentenceCase(withPeriod: true) == expect);
 }

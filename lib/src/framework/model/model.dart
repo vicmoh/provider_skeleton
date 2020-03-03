@@ -4,30 +4,59 @@
 ///
 /// [DO NOT TOUCH THIS FILE!!!].
 
-import 'package:meta/meta.dart';
+abstract class Model {
+  /// Get the ID of this model.
+  String get id => _id;
+  String _id;
 
-/// The Model Interface for the json serialize.
-abstract class ModelInterface {
-  ModelInterface.fromJson(Map<String, dynamic> json, {@required String id});
-  Map toJson();
-  @override
-  String toString() => toJson().toString();
-}
+  /// This id can only be set once, if id already exist
+  /// it will not overwrite. You can do [super.id] or [setId]
+  /// which is the exact same thing.
+  set id(String val) {
+    assert(_id == null);
+    if (_id != null) return;
+    _id = val;
+  }
 
-abstract class Model implements ModelInterface {
+  /// This id can only be set once, if id already exist
+  /// it will not overwrite. You can do [super.id] or [setId]
+  /// which is the exact same thing.
+  void setId(String val) => this.id = val;
+
   /// Get unique id for dummy model.
   /// For each call, id will increment.
   get uniqueIdForDummy => ++_uniqueIdForDummy;
   static int _uniqueIdForDummy = 0;
 
-  /// Global static cache for tracking the
-  /// all the data cache.
-  static Map<int, dynamic> _cache = {};
-
-  /// Model consisting cache tracker and Json interface.
+  /// Abstract model that define the model this initialize
+  /// the caching system. For every extend of this class
+  /// it will add to the cache bucket when instantiating.
   Model() {
     this.addToCache(this);
   }
+
+  /* -------------------------------------------------------------------------- */
+  /*                               JSON Serialize                               */
+  /* -------------------------------------------------------------------------- */
+
+  /// Create a model from JSON map.
+  Model.fromJson(Map json) {
+    this.addToCache(this);
+  }
+
+  /// Create JSON map from this model.
+  Map toJson();
+
+  @override
+  String toString() => toJson().toString();
+
+  /* -------------------------------------------------------------------------- */
+  /*                                   Caching                                  */
+  /* -------------------------------------------------------------------------- */
+
+  /// Global static cache for tracking the
+  /// all the data cache.
+  static Map<int, dynamic> _cache = {};
 
   /// Gat data from cache.
   /// For example to get the cache data:
@@ -37,7 +66,7 @@ abstract class Model implements ModelInterface {
   /// [Important]: The [id] must be set or exist
   /// before calling this function.
   Model getFromCache<T>(T model) {
-    if (_cache[model.hashCode].containsKey(this.id))
+    if (_cache.containsKey(this.hashCode))
       return _cache[model.hashCode];
     else
       return null;
@@ -58,24 +87,7 @@ abstract class Model implements ModelInterface {
   /// Print all the cached data.
   static void printAllCachedData() {
     print('_____ Cache data _____');
-    _cache.forEach((id, model) => print('ID: $id, Model: $model'));
+    _cache.forEach(
+        (cacheId, model) => print('Cache ID: $cacheId, Model: $model'));
   }
-
-  /// Get the ID of this model.
-  String get id => _id;
-  String _id;
-
-  /// This id can only be set once, if id already exist
-  /// it will not overwrite. You can do [super.id] or [setId]
-  /// which is the exact same thing.
-  set id(String val) {
-    assert(_id == null);
-    if (_id != null) return;
-    _id = val;
-  }
-
-  /// This id can only be set once, if id already exist
-  /// it will not overwrite. You can do [super.id] or [setId]
-  /// which is the exact same thing.
-  void setId(String val) => this.id = val;
 }

@@ -58,16 +58,21 @@ extension StringExtension on String {
 
   /// Convert string first letter to uppercase case, for example
   /// value is 'hello' it returns 'Hello'.
-  String toSentenceCase() {
+  /// This will remove any duplicate while space and
+  /// add period if [withPeriod] is true.
+  String toSentenceCase({bool withPeriod = false}) {
     if (this == null) return '';
-    var temp = this.toLowerCase();
+    var temp = this;
     String firstChar = temp.substring(0, 1).toUpperCase();
-    return firstChar + temp.substring(1, temp.length);
+    String sen = (firstChar + temp.substring(1, temp.length))
+        .trim()
+        .removeDuplicateWhiteSpaces();
+    var toks = sen.split(RegExp('[ ]'));
+    if (withPeriod == true && !toks.last.contains(RegExp('[!.:?]'))) sen += '.';
+    return sen;
   }
 
   /// Reference: https://capitalizemytitle.com/.
-  /// Chicago title case:
-  ///
   /// Capitalize the first and the last word.
   /// Capitalize nouns, pronouns, adjectives, verbs, adverbs, and subordinate conjunctions.
   /// Lowercase articles (a, an, the), coordinating conjunctions, and prepositions.
@@ -104,7 +109,7 @@ extension StringExtension on String {
       if (_prepositions.contains(word) || word.length <= 4)
         return res += ' ' + word;
       return res += ' ' + word.toLowerCase().toSentenceCase();
-    });
+    }).replaceAll(RegExp('[.]+'), '');
   }
 
   /// Check if the string is valid email format.

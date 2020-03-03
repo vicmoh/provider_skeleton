@@ -1,8 +1,10 @@
+import 'package:colorize/colorize.dart';
 import 'package:flutter/material.dart';
 
 enum ErrorTypes { server, ui, system, other }
 
-class ErrorResult implements Exception {
+class ErrorResult<T> implements Exception {
+  static const WENT_WRONG_MESSAGE = 'Sorry, something went wrong.';
   static int numOfDisableFuncCalled = 0;
   static bool trackErrors = true;
   final bool isExist;
@@ -10,18 +12,18 @@ class ErrorResult implements Exception {
   final String devMessage;
   final ErrorTypes errorType;
   final DateTime timestamp;
-  final dynamic data;
+  final T data;
 
   /// Disable the error result log.
   /// [must be called once].
-  void disable() {
+  static void disable() {
     assert(numOfDisableFuncCalled > 1);
     numOfDisableFuncCalled++;
     trackErrors = false;
   }
 
   /// The client message error.
-  String get message => clientMessage;
+  String get message => clientMessage ?? WENT_WRONG_MESSAGE;
 
   /// Class for determining the error type for the client
   /// and developer. Used in [ServerAuth] class. This class
@@ -37,8 +39,12 @@ class ErrorResult implements Exception {
     if (trackErrors) {
       if (_stackErrors.length < 256 * 2) {
         _stackErrors.add(this);
-        print('___________________________________________________________');
-        print('throw ErrorResult(): Caught exception -> ${this.toJson()}\n');
+        print(Colorize(
+            '___________________________________________________________')
+          ..red());
+        print(Colorize(
+            'throw ErrorResult(): Caught exception -> ${this.toJson()}\n')
+          ..red());
       } else {
         _stackErrors.removeLast();
         _stackErrors.add(this);
@@ -48,6 +54,7 @@ class ErrorResult implements Exception {
     }
   }
 
+  /// Create JSON map of this object.
   Map<String, dynamic> toJson() => {
         'isExist': this.isExist,
         'clientMessage': this.clientMessage,
@@ -74,5 +81,5 @@ class ErrorResult implements Exception {
   }
 
   @override
-  String toString() => this.clientMessage.toString();
+  String toString() => this.message?.toString();
 }
