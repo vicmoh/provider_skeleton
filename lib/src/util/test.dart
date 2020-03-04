@@ -144,7 +144,7 @@ class Test<I, E> {
           ..underline()
           ..yellow());
       str +=
-          '\t#$_numberOfTotalTest: $description Input with "$input". Expected "$expectation".';
+          '\t#$_numberOfTotalTest: $description Input with "$input". Expect "$expectation".';
     }
 
     // Testing outcome.

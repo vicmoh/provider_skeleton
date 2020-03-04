@@ -4,8 +4,8 @@ import '../extension/string_extension.dart';
 class Log {
   static int _numOfDisableFuncCalled = 0;
   static bool trackLogs = true;
+  final String tag;
   final String message;
-  final String function;
   final DateTime timestamp;
 
   /// Disable the log.
@@ -18,30 +18,35 @@ class Log {
 
   /// Function for testing this class.
   static void runTest() {
+    var logTest = Log('this', 'Hello World!');
     Log.disable();
     Test.single(
         description:
-            'Testing if Log() removes ":" and duplicate white spaces on function.',
-        input: '    \t  SomeObject.function()::: \t  ',
-        expectation: 'SomeObject.function()',
-        test: (input, expect) => Log(input, 'test').function == expect);
+            'Testing if Log() removes ":", "()" and duplicate white spaces on function.',
+        input: logTest.toString(),
+        expectation: 'Log(): Hello World!',
+        test: (input, expect) =>
+            Log(logTest, 'Hello World!').toString() == expect);
   }
 
   /// Print function replacement.
   /// For parameter [function] set the format
   /// like ex. "SomeObject.function()" as input
-  Log(String function, String message)
+  Log(dynamic object, String message)
       : timestamp = DateTime.now(),
         this.message = message.trim(),
-        this.function = function
-            .trim()
-            .removeDuplicateWhiteSpaces()
-            .replaceAll(RegExp('[:\n]+'), '') {
+        this.tag = object is String
+            ? object
+            : object?.runtimeType
+                ?.toString()
+                ?.trim()
+                ?.removeDuplicateWhiteSpaces()
+                ?.replaceAll(RegExp('[)(:\n ]+'), '') {
     // Keep track error if needed.
     if (trackLogs) {
       if (_stackLogs.length < 256 * 2) {
         _stackLogs.add(this);
-        print(this.function + ': ' + this.message);
+        print(this.toString());
       } else {
         _stackLogs.removeLast();
         _stackLogs.add(this);
@@ -58,10 +63,11 @@ class Log {
   /// To json object.
   Map<String, dynamic> toJson() => {
         'message': this.message,
-        'function': this.function,
+        'tag': this.tag,
         'timestamp': this.timestamp.toIso8601String(),
       };
 
   @override
-  String toString() => this.function + ': ' + this.message;
+  String toString() =>
+      this.tag == null ? '[NULL]: ' : this.tag + '(): ' + this.message;
 }
