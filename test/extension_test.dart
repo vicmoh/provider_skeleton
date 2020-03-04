@@ -106,7 +106,7 @@ void extensionTest() {
       ],
       test: (input, expect) => input.toPhoneFormat() == expect);
   Test<String, String>.batch(
-      description: 'testing the phone format for the string',
+      description: 'testing the phone format for the string with no spaces',
       inputs: [
         '15191234567',
         'asdfkl! ajnsdflkja1519anlksdj+ -a123sasd kldfjn4a5df6a7faasdf  \n',
@@ -121,18 +121,20 @@ void extensionTest() {
       ],
       test: (input, expect) => input.toPhoneFormat(noSpaces: true) == expect);
   Test<String, String>.batch(
-      description: 'testing the phone format for the string',
+      description: 'testing the phone format for the string with dash',
       inputs: [
         '15191234567',
         'asdfkl! ajnsdflkja1519anlksdj+ -a123sasd kldfjn4a5df6a7faasdf  \n',
         '1234567890123',
-        '123456789012345'
+        '123456789012345',
+        '12345678901234567',
       ],
       expectations: [
         '+1-519-123-4567',
         '+1-519-123-4567',
         '+123-456-789-0123',
-        '+12345-678-901-2345'
+        '+12345-678-901-2345',
+        '+34567-890-123-4567'
       ],
       test: (input, expect) => input.toPhoneFormat(withDash: true) == expect);
 }

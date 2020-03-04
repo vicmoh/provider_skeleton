@@ -15,8 +15,8 @@ extension StringExtension on String {
     String replacingFormat = ' ';
     if (withDash) replacingFormat = '-';
     if (noSpaces) replacingFormat = '';
-    if (temp.length > maxPhoneLength || temp.length < 9)
-      throw Exception('Invalid number length'.toSentenceCase());
+    if (temp.length > maxPhoneLength)
+      temp = temp.substring(temp.length - 15, temp.length);
     for (int x = 0; x < temp.length; x++) {
       if (x == 0) phoneFormat += '+';
       if (x == temp.length - 4 || x == temp.length - 7 || x == temp.length - 10)
