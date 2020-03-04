@@ -20,7 +20,7 @@ class FromContext {
   /// Class for navigating scaffold pages.
   FromContext({@required BuildContext of})
       : this.context = of,
-        assert(context != null);
+        assert(of != null);
 }
 
 /// This class is used to create a navigator
