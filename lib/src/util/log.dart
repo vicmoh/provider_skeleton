@@ -29,9 +29,16 @@ class Log {
             Log(logTest, 'Hello World!').toString() == expect);
   }
 
-  /// Print function replacement.
-  /// For parameter [function] set the format
-  /// like ex. "SomeObject.function()" as input
+  /// Print function replacement. This function will
+  /// track the log and create a timestamp history.
+  /// When calling this log in a class pass the [object]
+  /// with [this]. It will print associated with
+  /// the object name.
+  ///
+  /// For example:
+  /// ```
+  /// Log(this, 'Hello World!');
+  /// ```
   Log(dynamic object, String message)
       : timestamp = DateTime.now(),
         this.message = message.trim(),
