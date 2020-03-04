@@ -10,15 +10,27 @@ import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 import 'package:provider_skeleton/provider_skeleton.dart';
 
-class FromContext {
+/// Class used for navigation.
+/// Should create and extension of this class.
+///
+/// For example:
+/// ```dart
+/// extension ApplicationRouting on Router{
+///   void navToHomePage() => Navigate.to(context,
+///       replaceAsRoot: true,
+///       providers: [PhoneVerificationLogic()],
+///       page: HomeScreen());
+/// }
+/// ```
+class Router {
   /// The context of the widget.
   final BuildContext context;
 
   /// Class for navigating the scaffold pages.
-  static FromContext of(BuildContext context) => FromContext(of: context);
+  static Router of(BuildContext context) => Router(of: context);
 
   /// Class for navigating scaffold pages.
-  FromContext({@required BuildContext of})
+  Router({@required BuildContext of})
       : this.context = of,
         assert(of != null);
 }
