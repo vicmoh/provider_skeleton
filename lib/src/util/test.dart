@@ -79,9 +79,9 @@ class Test<I, E> {
   /// the test pass of fails.
   Test.batch({
     @required this.description,
+    @required this.test,
     @required this.inputs,
     @required this.expectations,
-    @required this.test,
   })  : this._type = _TestType.batch,
         this.timestamp = DateTime.now() {
     assert(!(this.description == null &&
@@ -104,9 +104,9 @@ class Test<I, E> {
   /// of fails. Will print the test as this instance is created.
   Test.single({
     @required this.description,
+    @required this.test,
     @required I input,
     @required E expectation,
-    @required this.test,
   })  : this._type = _TestType.single,
         this.timestamp = DateTime.now(),
         this.inputs = [input],

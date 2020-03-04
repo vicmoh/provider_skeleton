@@ -2,7 +2,7 @@ import '../util/test.dart';
 import '../extension/string_extension.dart';
 
 class Log {
-  static int numOfDisableFuncCalled = 0;
+  static int _numOfDisableFuncCalled = 0;
   static bool trackLogs = true;
   final String message;
   final String function;
@@ -11,8 +11,8 @@ class Log {
   /// Disable the log.
   /// [Must be called once].
   static void disable() {
-    assert(numOfDisableFuncCalled > 1);
-    numOfDisableFuncCalled++;
+    _numOfDisableFuncCalled++;
+    assert(_numOfDisableFuncCalled == 1 || _numOfDisableFuncCalled == 0);
     trackLogs = false;
   }
 

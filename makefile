@@ -13,4 +13,4 @@ package:
 #---------------------------------------------------------------------
 
 test: package
-	cd test; dart test.dart;
+	cd test; dart --enable-asserts test.dart;

@@ -90,4 +90,49 @@ void extensionTest() {
       ],
       test: (input, expect) =>
           input.toSentenceCase(withPeriod: true) == expect);
+  Test<String, String>.batch(
+      description: 'testing the phone format for the string',
+      inputs: [
+        '15191234567',
+        'asdfkl! ajnsdflkja1519anlksdj+ -a123sasd kldfjn4a5df6a7faasdf  \n',
+        '1234567890123',
+        '123456789012345'
+      ],
+      expectations: [
+        '+1 519 123 4567',
+        '+1 519 123 4567',
+        '+123 456 789 0123',
+        '+12345 678 901 2345'
+      ],
+      test: (input, expect) => input.toPhoneFormat() == expect);
+  Test<String, String>.batch(
+      description: 'testing the phone format for the string',
+      inputs: [
+        '15191234567',
+        'asdfkl! ajnsdflkja1519anlksdj+ -a123sasd kldfjn4a5df6a7faasdf  \n',
+        '1234567890123',
+        '123456789012345'
+      ],
+      expectations: [
+        '+15191234567',
+        '+15191234567',
+        '+1234567890123',
+        '+123456789012345'
+      ],
+      test: (input, expect) => input.toPhoneFormat(noSpaces: true) == expect);
+  Test<String, String>.batch(
+      description: 'testing the phone format for the string',
+      inputs: [
+        '15191234567',
+        'asdfkl! ajnsdflkja1519anlksdj+ -a123sasd kldfjn4a5df6a7faasdf  \n',
+        '1234567890123',
+        '123456789012345'
+      ],
+      expectations: [
+        '+1-519-123-4567',
+        '+1-519-123-4567',
+        '+123-456-789-0123',
+        '+12345-678-901-2345'
+      ],
+      test: (input, expect) => input.toPhoneFormat(withDash: true) == expect);
 }

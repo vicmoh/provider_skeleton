@@ -1,4 +1,31 @@
 extension StringExtension on String {
+  /// Convert string to phone number format such as string
+  /// to "+1 519 123 4567". By  default it will remove
+  /// all alphabets and other character except for integers.
+  String toPhoneFormat({
+    bool withDash = false,
+    bool noSpaces = false,
+  }) {
+    const maxPhoneLength = 15;
+    String temp = this
+        .trim()
+        .removeDuplicateWhiteSpaces()
+        .replaceAll(RegExp('[^0-9]'), '');
+    String phoneFormat = '';
+    String replacingFormat = ' ';
+    if (withDash) replacingFormat = '-';
+    if (noSpaces) replacingFormat = '';
+    if (temp.length > maxPhoneLength || temp.length < 9)
+      throw Exception('Invalid number length'.toSentenceCase());
+    for (int x = 0; x < temp.length; x++) {
+      if (x == 0) phoneFormat += '+';
+      if (x == temp.length - 4 || x == temp.length - 7 || x == temp.length - 10)
+        phoneFormat += replacingFormat;
+      phoneFormat += temp[x];
+    }
+    return phoneFormat.trim();
+  }
+
   /// Remove alphabets to become a digit only value string.
   /// Turn into number string, punctuation and white spaces
   /// will be removed. The only accepting value is numbers and periods.
