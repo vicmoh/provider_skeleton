@@ -12,10 +12,10 @@ abstract class Model {
   /// This id can only be set once, if id already exist
   /// it will not overwrite. You can do [super.id] or [setId]
   /// which is the exact same thing.
-  set id(String val) {
+  set id(String id) {
     assert(_id == null);
     if (_id != null) return;
-    _id = val;
+    _id = id;
   }
 
   /// This id can only be set once, if id already exist

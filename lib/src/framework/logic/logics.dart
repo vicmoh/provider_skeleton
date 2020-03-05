@@ -48,13 +48,13 @@ class Logics {
   /// methods. If [isSingleton] is set, then all
   /// data is access to the same pointer when is provided.
   static void provide<T extends ViewLogic>(
-    T handler, {
+    T viewLogic, {
     bool isSingleton = false,
   }) {
     if (!isSingleton)
-      _getIt.registerSingleton<T>(handler);
+      _getIt.registerSingleton<T>(viewLogic);
     else
-      _getIt.registerFactory<T>(() => handler);
+      _getIt.registerFactory<T>(() => viewLogic);
     _providers.add(ChangeNotifierProvider<T>.value(value: _getIt<T>()));
   }
 }
