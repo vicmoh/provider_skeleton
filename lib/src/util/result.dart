@@ -10,7 +10,7 @@ class Result<T> implements Exception {
   static bool _trackErrors = true;
 
   /// Any data to be hold.
-  final T data;
+  final T value;
 
   /// The message for the client user.
   final String clientMessage;
@@ -28,7 +28,7 @@ class Result<T> implements Exception {
   final DateTime timestamp;
 
   /// Determine if it has data.
-  bool get hasData => data == null ? false : true;
+  bool get hasData => value == null ? false : true;
 
   /// Disable the error result log.
   /// [must be called once].
@@ -43,7 +43,7 @@ class Result<T> implements Exception {
 
   /// Class for returning data with message.
   Result(
-    this.data, {
+    this.value, {
     this.devMessage = '',
     this.clientMessage = '',
   })  : this.timestamp = DateTime.now(),
@@ -54,7 +54,7 @@ class Result<T> implements Exception {
   /// and developer. Used in [ServerAuth] class. This class
   /// is used when you [throw] an error.
   Result.hasError(
-    this.data, {
+    this.value, {
     @required this.clientMessage,
     @required this.devMessage,
     @required this.errorType,
@@ -81,7 +81,7 @@ class Result<T> implements Exception {
 
   /// Create JSON map of this object.
   Map<String, dynamic> toJson() => {
-        'data': this.data,
+        'data': this.value,
         'hasError': this.hasError,
         'clientMessage': this.clientMessage,
         'devMessage': this.devMessage,
@@ -97,7 +97,7 @@ class Result<T> implements Exception {
   /// in a loop. This function is only for test purpose only.
   static void test() {
     for (int x = 0; x < 9999; x++) {
-      Result.hasError(
+      Result.hasError(null,
           errorType: ErrorTypes.other,
           devMessage: 'Result.test(): tempError = $x',
           clientMessage: 'This is error number $x.');
