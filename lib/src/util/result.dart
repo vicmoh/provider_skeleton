@@ -1,42 +1,67 @@
 import 'package:colorize/colorize.dart';
 import 'package:flutter/material.dart';
 
-enum ErrorTypes { server, ui, system, other }
+enum ErrorTypes { other, none, server, ui, system }
 
-class ErrorResult<T> implements Exception {
+class Result<T> implements Exception {
   static const WENT_WRONG_MESSAGE = 'Sorry, something went wrong.';
-  static int numOfDisableFuncCalled = 0;
-  static bool trackErrors = true;
-  final bool isExist;
-  final String clientMessage;
-  final String devMessage;
-  final ErrorTypes errorType;
-  final DateTime timestamp;
+  // For disabling the print and the checking number of calls
+  static int _numOfDisableFuncCalled = 0;
+  static bool _trackErrors = true;
+
+  /// Any data to be hold.
   final T data;
+
+  /// The message for the client user.
+  final String clientMessage;
+
+  /// The message for developer.
+  final String devMessage;
+
+  /// Determine if this return has error.
+  final bool hasError;
+
+  /// If there is error in the result.
+  final ErrorTypes errorType;
+
+  /// Timestamp of when this object created.
+  final DateTime timestamp;
+
+  /// Determine if it has data.
+  bool get hasData => data == null ? false : true;
 
   /// Disable the error result log.
   /// [must be called once].
   static void disable() {
-    assert(numOfDisableFuncCalled > 1);
-    numOfDisableFuncCalled++;
-    trackErrors = false;
+    assert(_numOfDisableFuncCalled > 1);
+    _numOfDisableFuncCalled++;
+    _trackErrors = false;
   }
 
   /// The client message error.
   String get message => clientMessage ?? WENT_WRONG_MESSAGE;
 
+  /// Class for returning data with message.
+  Result({
+    @required this.data,
+    this.devMessage = '',
+    this.clientMessage = '',
+  })  : this.timestamp = DateTime.now(),
+        this.errorType = ErrorTypes.none,
+        this.hasError = false;
+
   /// Class for determining the error type for the client
   /// and developer. Used in [ServerAuth] class. This class
   /// is used when you [throw] an error.
-  ErrorResult({
+  Result.hasError({
     @required this.clientMessage,
     @required this.devMessage,
     @required this.errorType,
     this.data,
-  })  : this.isExist = true,
-        timestamp = DateTime.now() {
+  })  : this.timestamp = DateTime.now(),
+        this.hasError = true {
     // Keep track error if needed
-    if (trackErrors) {
+    if (_trackErrors) {
       if (_stackErrors.length < 256 * 2) {
         _stackErrors.add(this);
         print(Colorize(
@@ -56,7 +81,8 @@ class ErrorResult<T> implements Exception {
 
   /// Create JSON map of this object.
   Map<String, dynamic> toJson() => {
-        'isExist': this.isExist,
+        'data': this.data,
+        'hasError': this.hasError,
         'clientMessage': this.clientMessage,
         'devMessage': this.devMessage,
         'errorType': this.errorType.toString(),
@@ -64,22 +90,21 @@ class ErrorResult<T> implements Exception {
       };
 
   /// The list of errors collected in the past
-  static List<ErrorResult> _stackErrors = [];
-  static List<ErrorResult> get list =>
-      List<ErrorResult>.of(_stackErrors ?? []).toList();
+  static List<Result> _stackErrors = [];
+  static List<Result> get list => List<Result>.of(_stackErrors ?? []).toList();
 
   /// Run a test by calling the error test 9999 times
   /// in a loop. This function is only for test purpose only.
   static void test() {
     for (int x = 0; x < 9999; x++) {
-      ErrorResult(
+      Result.hasError(
           errorType: ErrorTypes.other,
-          devMessage: 'ErrorResult.test(): tempError = $x',
+          devMessage: 'Result.test(): tempError = $x',
           clientMessage: 'This is error number $x.');
     }
-    ErrorResult.list.forEach((el) => print(el.toString()));
+    Result.list.forEach((el) => print(el.toString()));
   }
 
   @override
-  String toString() => this.message?.toString();
+  String toString() => this.message?.toString() ?? '';
 }
