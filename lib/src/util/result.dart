@@ -1,7 +1,7 @@
 import 'package:colorize/colorize.dart';
 import 'package:flutter/material.dart';
 
-enum ErrorTypes { other, none, server, ui, system }
+enum ErrorTypes { other, none, server, ui, system, validation }
 
 class Result<T> implements Exception {
   static const WENT_WRONG_MESSAGE = 'Sorry, something went wrong.';
