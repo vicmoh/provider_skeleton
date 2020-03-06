@@ -6,7 +6,6 @@ export './src/extension/number_extension.dart';
 export './src/util/util.dart';
 export './src/util/log.dart';
 export './src/util/enum_converter.dart';
-export './src/util/material_util.dart';
 export './src/util/test.dart';
 export './src/util/result.dart';
 export './src/framework/logic/view_logic.dart';
