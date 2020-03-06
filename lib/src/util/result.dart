@@ -42,8 +42,8 @@ class Result<T> implements Exception {
   String get message => clientMessage ?? WENT_WRONG_MESSAGE;
 
   /// Class for returning data with message.
-  Result({
-    @required this.data,
+  Result(
+    this.data, {
     this.devMessage = '',
     this.clientMessage = '',
   })  : this.timestamp = DateTime.now(),
@@ -53,11 +53,11 @@ class Result<T> implements Exception {
   /// Class for determining the error type for the client
   /// and developer. Used in [ServerAuth] class. This class
   /// is used when you [throw] an error.
-  Result.hasError({
+  Result.hasError(
+    this.data, {
     @required this.clientMessage,
     @required this.devMessage,
     @required this.errorType,
-    this.data,
   })  : this.timestamp = DateTime.now(),
         this.hasError = true {
     // Keep track error if needed
