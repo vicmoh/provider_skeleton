@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:provider_skeleton/src/framework/model/model.dart';
+import 'package:provider_skeleton/src/model/model.dart';
 
 /// This file one of the main foundation
 /// where it is used for creating the list view

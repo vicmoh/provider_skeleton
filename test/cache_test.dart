@@ -1,5 +1,5 @@
 import 'package:dart_util/dart_util.dart';
-import '../lib/src/framework/model/model.dart';
+import '../lib/src/model/model.dart';
 
 class ModelTest1 extends Model {
   final String data;

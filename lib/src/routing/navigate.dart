@@ -8,7 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
-import 'package:provider_skeleton/provider_skeleton.dart';
+import 'package:provider_skeleton/src/logic/view_logic.dart';
 
 /// Class used for navigation.
 /// Should create and extension of this class.

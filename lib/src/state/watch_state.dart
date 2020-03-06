@@ -7,8 +7,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:provider_skeleton/src/framework/logic/logics.dart';
-import 'package:provider_skeleton/src/framework/logic/view_logic.dart';
+import 'package:provider_skeleton/provider_skeleton.dart';
 
 class WatchState<T extends ViewLogic> extends StatefulWidget {
   final Widget Function(BuildContext context, T model) builder;
