@@ -1,5 +1,5 @@
+import 'package:dart_util/dart_util.dart';
 import '../lib/src/framework/model/model.dart';
-import '../lib/src/util/test.dart';
 
 class ModelTest1 extends Model {
   final String data;
@@ -13,7 +13,7 @@ class ModelTest1 extends Model {
 
   @override
   bool operator ==(object) {
-    if (this.data == object?.value &&
+    if (this.data == object?.data &&
         this.name == object?.name &&
         this.hashCode != object?.hashCode &&
         this.getFromCache<ModelTest1>(this) != null) return true;
@@ -38,7 +38,7 @@ class ModelTest2 extends Model {
 
   @override
   bool operator ==(object) {
-    if (this.data == object?.value &&
+    if (this.data == object?.data &&
         this.name == object?.name &&
         this.hashCode != object?.hashCode &&
         this.getFromCache<ModelTest2>(this) != null) return true;

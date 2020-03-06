@@ -1,10 +1,9 @@
-# Quick git commit push.
+m = [AUTO]
 git:
 	git add -A
 	git commit -m "$(m)"
 	git push
 
-# Export package
 package:
 	cd lib; cd flutter_package_exporter; make FILE='provider_skeleton'
 
