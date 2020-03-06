@@ -1,0 +1,3 @@
+[submodule "lib/flutter_package_exporter"]
+	path = lib/flutter_package_exporter
+	url = http://github.com/vicmoh/flutter_package_exporter
