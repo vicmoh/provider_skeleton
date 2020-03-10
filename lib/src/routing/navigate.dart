@@ -15,26 +15,14 @@ import 'package:provider_skeleton/src/logic/view_logic.dart';
 ///
 /// For example:
 /// ```dart
-/// extension ApplicationRouting on Router{
-///   void navToHomePage() => Navigate.to(context,
-///       replaceAsRoot: true,
-///       providers: [PhoneVerificationLogic()],
-///       page: HomeScreen());
-/// }
+///
+/// void navToHomePage() => Navigate.to(context,
+///     replaceAsRoot: true,
+///     providers: [PhoneVerificationLogic()],
+///     page: HomeScreen());
+///
 /// ```
-class Router {
-  /// The context of the widget.
-  final BuildContext context;
-
-  /// Class for navigating the scaffold pages.
-  static Router of(BuildContext context) => Router(of: context);
-
-  /// Class for navigating scaffold pages.
-  Router({@required BuildContext of})
-      : this.context = of,
-        assert(of != null);
-}
-
+///
 /// This class is used to create a navigator
 /// where it will also provide models to
 /// the descendent tree. By default it is using
