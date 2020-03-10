@@ -11,16 +11,18 @@ dependencies:
   flutter:
     sdk: flutter
 
-  dart_util:
-    git:
-      url: git://github.com/vicmoh/dart_util.git
-
   get_it: 3.1.0
   provider: 4.0.3
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  
+  # Developer dependencies for only this project.
+  dart_util:
+    git:
+      url: git://github.com/vicmoh/dart_util.git
+      ref: v0.01
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

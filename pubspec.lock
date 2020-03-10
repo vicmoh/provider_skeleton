@@ -65,11 +65,11 @@ packages:
     source: hosted
     version: "2.1.3"
   dart_util:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       path: "."
-      ref: HEAD
-      resolved-ref: c5dcd3657a38a77a2df9cd677a9f6690f18b2536
+      ref: "v0.01"
+      resolved-ref: c478228bd023b2e1a837594e0edfbdf69a8e3c6e
       url: "git://github.com/vicmoh/dart_util.git"
     source: git
     version: "0.0.1"
