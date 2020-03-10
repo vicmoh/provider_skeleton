@@ -1,5 +1,4 @@
-m = [AUTO]
-git:
+git: sure
 	git add -A
 	git commit -m "$(m)"
 	git push
@@ -17,5 +16,5 @@ clean:
 # Testing functions
 #---------------------------------------------------------------------
 
-test: package
+sure: package
 	cd test; dart --enable-asserts test.dart;

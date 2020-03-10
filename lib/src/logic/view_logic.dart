@@ -22,7 +22,10 @@ abstract class ViewLogic extends ChangeNotifier {
 
   /// The initial state of the view logic
   /// when the the logic first created.
-  void initState() {}
+  void initState();
+
+  @override
+  void dispose();
 
   /// Get the current state of the [ViewLogic].
   ViewState get currentState => _currentState ?? ViewState.asComplete;
