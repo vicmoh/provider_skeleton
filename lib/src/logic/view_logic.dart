@@ -1,9 +1,3 @@
-/// This file one of the main foundation
-/// where it is used for creating the view
-/// models of the application.
-///
-/// [DO NOT TOUCH THIS FILE!!!].
-
 import 'package:flutter/material.dart';
 
 /// View state is how what the view model is doing.

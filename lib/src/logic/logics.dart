@@ -1,15 +1,11 @@
-/// This class is the foundation used to initialize
-/// and setup the model which will be provided
-/// through the widget tree.
-///
-/// [DO NOT TOUCH THIS FILE!!!].
-
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
-
 import 'view_logic.dart';
 
+/// This class is the foundation used to initialize
+/// and setup the model which will be provided
+/// through the widget tree
 class Logics {
   /// Allows you to register the class type and request it
   // from anywhere where you have access to the container.

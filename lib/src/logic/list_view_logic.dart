@@ -1,17 +1,12 @@
 import 'dart:async';
-
 import 'package:provider_skeleton/src/model/model.dart';
+import 'view_logic.dart';
 
 /// This file one of the main foundation
 /// where it is used for creating the list view
 /// models of the application.
 /// It extends the [ViewLogic].
 /// Used to manage list view data.
-///
-/// [DO NOT TOUCH THIS FILE!!!]
-
-import 'view_logic.dart';
-
 abstract class ListViewLogic<T extends Model> extends ViewLogic {
   @override
   void dispose() {
@@ -30,12 +25,14 @@ abstract class ListViewLogic<T extends Model> extends ViewLogic {
   Map<String, T> _cache = {};
 
   /// Get the list of data for the list view.
-  List<T> get items => _items;
+  List<T> get items => _items ?? [];
   List<T> _items = [];
 
   /// Add data to list of items for list view.
   void addItems(List<T> data) {
+    if (data == null) return;
     for (Model each in data) {
+      if (each == null) continue;
       if (_cache.containsKey(each.id)) continue;
       _cache[each.id] = each;
       _items.insert(0, each);

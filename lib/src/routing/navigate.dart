@@ -1,26 +1,19 @@
-/// This function is part of the foundation of the
-/// this application state management framework.
-/// It is used to navigate and providing to certain page.
-///
-/// [DO NOT TOUCH THIS FILE!!!].
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 import 'package:provider_skeleton/src/logic/view_logic.dart';
 
-/// Class used for navigation.
-/// Should create and extension of this class.
+/// This function is part of the foundation of the
+/// this application state management framework.
+/// It is used to navigate and providing to certain page.
 ///
 /// For example:
 /// ```dart
-///
 /// void navToHomePage() => Navigate.to(context,
 ///     replaceAsRoot: true,
 ///     providers: [PhoneVerificationLogic()],
 ///     page: HomeScreen());
-///
 /// ```
 ///
 /// This class is used to create a navigator

@@ -1,9 +1,6 @@
 /// This class is the foundation used to extends
 /// and the generic model where data is being used
 /// for the [ListViewLogic].
-///
-/// [DO NOT TOUCH THIS FILE!!!].
-
 abstract class Model {
   /// Get the ID of this model.
   String get id => _id;
