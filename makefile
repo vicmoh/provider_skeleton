@@ -1,4 +1,4 @@
-git: sure
+git: sure clean
 	git add -A
 	git commit -m "$(m)"
 	git push
@@ -10,7 +10,7 @@ dependency:
 	cd lib; git clone https://github.com/vicmoh/flutter_package_exporter/
 
 clean:
-	cd lib; rm -rf flutter_package_exporter
+	cd ./lib/flutter_package_exporter/; make clean;
 
 #---------------------------------------------------------------------
 # Testing functions
