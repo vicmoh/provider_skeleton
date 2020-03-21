@@ -59,6 +59,14 @@ class CacheSystem {
   /// all the data cache.
   static Map<int, dynamic> _cache = {};
 
+  /// Check if this model exist in the cache.
+  bool isExist<T>(T model) {
+    if (_cache.containsKey(this.hashCode))
+      return true;
+    else
+      return false;
+  }
+
   /// Gat data from cache.
   /// For example to get the cache data:
   /// ```dart
