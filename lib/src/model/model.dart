@@ -1,7 +1,7 @@
 /// This class is the foundation used to extends
 /// and the generic model where data is being used
 /// for the [ListViewLogic].
-abstract class Model {
+abstract class Model with CacheSystem {
   /// Get the ID of this model.
   String get id => _id;
   String _id;
@@ -30,6 +30,7 @@ abstract class Model {
   /// it will add to the cache bucket when instantiating.
   Model() {
     this.addToCache(this);
+    if (setId != null) this.setId(id);
   }
 
   /* -------------------------------------------------------------------------- */
@@ -39,6 +40,7 @@ abstract class Model {
   /// Create a model from JSON map.
   Model.fromJson(Map json) {
     this.addToCache(this);
+    if (setId != null) this.setId(id);
   }
 
   /// Create JSON map from this model.
@@ -46,11 +48,13 @@ abstract class Model {
 
   @override
   String toString() => toJson().toString();
+}
 
-  /* -------------------------------------------------------------------------- */
-  /*                                   Caching                                  */
-  /* -------------------------------------------------------------------------- */
+/* -------------------------------------------------------------------------- */
+/*                                   Caching                                  */
+/* -------------------------------------------------------------------------- */
 
+class CacheSystem {
   /// Global static cache for tracking the
   /// all the data cache.
   static Map<int, dynamic> _cache = {};
@@ -77,7 +81,6 @@ abstract class Model {
   /// call [setId] function.
   void addToCache<T>(T model) {
     if (model == null) return;
-    if (setId != null) this.setId(id);
     _cache[model.hashCode] = model;
   }
 
