@@ -77,6 +77,7 @@ mixin UniquifyListModel<T extends Model> {
       _cache[each.id] = each;
       _items.insert(0, each);
     }
+    _items.sort(Model.orderByRecent);
   }
 
   /// Replace the whole data with a new list of items
@@ -86,5 +87,6 @@ mixin UniquifyListModel<T extends Model> {
     _cache.clear();
     _items.clear();
     addItems(data);
+    _items.sort(Model.orderByRecent);
   }
 }

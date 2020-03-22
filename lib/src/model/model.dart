@@ -77,7 +77,7 @@ abstract class Model with CacheSystem {
   /// Compare model based on timestamp which
   /// will order the list by recent timestamp.
   static int orderByRecent(Model a, Model b) =>
-      b.timestamp.compareTo(a.timestamp);
+      a == null || b == null ? 0 : b.timestamp.compareTo(a.timestamp);
 
   @override
   String toString() => toJson().toString();
