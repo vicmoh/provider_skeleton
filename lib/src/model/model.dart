@@ -90,9 +90,6 @@ abstract class Model with CacheSystem {
     if (model is Model && this.id == model.id) return true;
     return false;
   }
-
-  @override
-  String toString() => toJson().toString();
 }
 
 /* -------------------------------------------------------------------------- */
