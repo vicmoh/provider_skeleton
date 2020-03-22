@@ -4,6 +4,7 @@ import '../lib/src/model/model.dart';
 class ModelTest1 extends Model {
   final String data;
   final String name;
+
   ModelTest1(this.data) : this.name = 'ModelTest1' {
     setId(super.uniqueIdForDummy);
   }
@@ -12,6 +13,9 @@ class ModelTest1 extends Model {
   Map<String, dynamic> toJson() {
     return {'class': this.name, 'data': this.data};
   }
+
+  @override
+  int get hashCode => super.hashCode;
 
   @override
   bool operator ==(object) {
@@ -39,6 +43,9 @@ class ModelTest2 extends Model {
   Map<String, dynamic> toJson() {
     return {'class': this.name, 'data': this.data};
   }
+
+  @override
+  int get hashCode => super.hashCode;
 
   @override
   bool operator ==(object) {
