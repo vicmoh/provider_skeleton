@@ -4,7 +4,9 @@ import '../lib/src/model/model.dart';
 class ModelTest1 extends Model {
   final String data;
   final String name;
-  ModelTest1(this.data) : this.name = 'ModelTest1';
+  ModelTest1(this.data) : this.name = 'ModelTest1' {
+    setId(super.uniqueIdForDummy);
+  }
 
   @override
   Map<String, dynamic> toJson() {
@@ -29,7 +31,9 @@ class ModelTest1 extends Model {
 class ModelTest2 extends Model {
   final String data;
   final String name;
-  ModelTest2(this.data) : this.name = 'ModelTest2';
+  ModelTest2(this.data) : this.name = 'ModelTest2' {
+    setId(super.uniqueIdForDummy);
+  }
 
   @override
   Map<String, dynamic> toJson() {

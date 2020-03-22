@@ -2,27 +2,9 @@
 /// and the generic model where data is being used
 /// for the [ListViewLogic].
 abstract class Model with CacheSystem {
-  /// Get the ID of this model.
-  String get id => _id;
-  String _id;
-
-  /// This id can only be set once, if id already exist
-  /// it will not overwrite. You can do [super.id] or [setId]
-  /// which is the exact same thing.
-  set id(String id) {
-    assert(_id == null);
-    if (_id != null) return;
-    _id = id;
-  }
-
-  /// This id can only be set once, if id already exist
-  /// it will not overwrite. You can do [super.id] or [setId]
-  /// which is the exact same thing.
-  void setId(String val) => this.id = val;
-
   /// Get unique id for dummy model.
   /// For each call, id will increment.
-  get uniqueIdForDummy => ++_uniqueIdForDummy;
+  String get uniqueIdForDummy => 'uniqueIdForDummy${++_uniqueIdForDummy}';
   static int _uniqueIdForDummy = 0;
 
   /// Abstract model that define the model this initialize
@@ -30,21 +12,72 @@ abstract class Model with CacheSystem {
   /// it will add to the cache bucket when instantiating.
   Model() {
     this.addToCache(this);
-    if (setId != null) this.setId(id);
   }
-
-  /* -------------------------------------------------------------------------- */
-  /*                               JSON Serialize                               */
-  /* -------------------------------------------------------------------------- */
 
   /// Create a model from JSON map.
   Model.fromJson(Map json) {
     this.addToCache(this);
-    if (setId != null) this.setId(id);
   }
 
   /// Create JSON map from this model.
   Map toJson();
+
+  /* -------------------------------- Model ID -------------------------------- */
+
+  String _id;
+
+  /// Get the ID of this model.
+  String get id {
+    assert(_id != null);
+    return _id;
+  }
+
+  /// This id can only be set once, if id already exist
+  /// it will not overwrite. You can do [super.id] or [setId]
+  /// which is the exact same thing.
+  set id(String val) {
+    assert(_id == null);
+    if (_id != null) return;
+    _id = val;
+  }
+
+  /// This id can only be set once, if id already exist
+  /// it will not overwrite. You can do [super.id] or [setId]
+  /// which is the exact same thing.
+  void setId(String val) => this.id = val;
+
+  /* -------------------------------- Timestamp ------------------------------- */
+
+  DateTime _timestamp;
+
+  /// Timestamp of when the model was create.
+  DateTime get timestamp {
+    assert(_timestamp != null);
+    return _timestamp;
+  }
+
+  /// Set the timestamp of when the model was created.
+  /// You can only set the timestamp model once.
+  /// You can do [setTimestamp] or [timestamp] which
+  /// is the exact same thing.
+  set timestamp(DateTime val) {
+    assert(_timestamp == null);
+    if (_timestamp != null) return;
+    _timestamp = val;
+  }
+
+  /// Set the timestamp of when the model was created.
+  /// You can only set the timestamp model once.
+  /// You can do [setTimestamp] or [timestamp] which
+  /// is the exact same thing.
+  void setTimestamp(DateTime val) => this.timestamp = val;
+
+  /* --------------------------------- Others --------------------------------- */
+
+  /// Compare model based on timestamp which
+  /// will order the list by recent timestamp.
+  static int orderByRecent(Model a, Model b) =>
+      b.timestamp.compareTo(a.timestamp);
 
   @override
   String toString() => toJson().toString();
