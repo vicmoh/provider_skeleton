@@ -21,6 +21,10 @@ abstract class ViewLogic extends ChangeNotifier {
   @override
   void dispose();
 
+  /// Determine if the current state is loading state.
+  /// Return true if it is.
+  bool get isLoading => _currentState == ViewState.asLoading;
+
   /// Get the current state of the [ViewLogic].
   ViewState get currentState => _currentState ?? ViewState.asComplete;
   ViewState _currentState = ViewState.asComplete;

@@ -28,3 +28,6 @@ clean:
 # Install dependencies.
 install: clean 
 	cd lib; git clone https://github.com/vicmoh/flutter_package_exporter || cd flutter_package_exporter; git pull;
+
+new: all
+	git branch $(version); git checkout $(version); git push --set-upstream origin $(version); git checkout master;
