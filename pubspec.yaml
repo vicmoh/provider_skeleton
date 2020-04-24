@@ -1,6 +1,6 @@
 name: provider_skeleton
-description: A new Flutter package project.
-version: 0.0.1
+description: Architecture layout skeleton. 
+version: 0.0.7
 author: Vicky Mohammad
 homepage: https://github.com/vicmoh/provider_skeleton/
 
