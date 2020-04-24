@@ -36,11 +36,12 @@ class WatchState<T extends ViewLogic> extends StatefulWidget {
 }
 
 class _WatchStateState<T extends ViewLogic> extends State<WatchState<T>> {
-  T _model = Logics.getIt<T>();
+  T _model;
 
   @override
   void initState() {
     super.initState();
+    _model = this.widget.logic ?? Logics.getIt<T>();
     _model?.initContext(context);
     Future.microtask(() {
       if (this.widget.onReady != null) this.widget.onReady(_model);
