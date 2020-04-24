@@ -13,6 +13,12 @@ class WatchState<T extends ViewLogic> extends StatefulWidget {
   /// watch will be updated.
   final Widget Function(BuildContext context, T model) builder;
 
+  /// The logic model. If this is null.
+  /// it will use the global model provided.
+  /// If this is logic is placed, it will use
+  /// this logic instead.
+  final T logic;
+
   /// When the logic is ready.
   final Function(T) onReady;
 
@@ -22,6 +28,7 @@ class WatchState<T extends ViewLogic> extends StatefulWidget {
   WatchState({
     @required this.builder,
     this.onReady,
+    this.logic,
   }) : assert(builder != null);
 
   @override
@@ -43,7 +50,7 @@ class _WatchStateState<T extends ViewLogic> extends State<WatchState<T>> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<T>.value(
-        value: _model,
+        value: this.widget.logic ?? _model,
         child: Consumer<T>(
             builder: (context, T model, child) =>
                 this.widget.builder(context, model)));
