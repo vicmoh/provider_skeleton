@@ -50,7 +50,6 @@ class _WatchStateState<T extends ViewLogic> extends State<WatchState<T>> {
 
   @override
   void dispose() {
-    _model?.dispose();
     super.dispose();
   }
 
