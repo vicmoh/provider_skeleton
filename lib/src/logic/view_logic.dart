@@ -19,7 +19,9 @@ abstract class ViewLogic extends ChangeNotifier {
   void initState() {}
 
   @override
-  void dispose();
+  void dispose() {
+    super.dispose();
+  }
 
   /// Determine if the current state is loading state.
   /// Return true if it is.
