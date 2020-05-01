@@ -1,22 +1,28 @@
+import 'package:meta/meta.dart';
+
 /// This class is the foundation used to extends
 /// and the generic model where data is being used
 /// for the [ListViewLogic].
-abstract class Model with CacheSystem {
+abstract class Model {
   /// Get unique id for dummy model.
   /// For each call, id will increment.
-  String get uniqueIdForDummy => 'uniqueIdForDummy${++_uniqueIdForDummy}';
+  static String get uniqueIdForDummy =>
+      'uniqueIdForDummy${++_uniqueIdForDummy}';
   static int _uniqueIdForDummy = 0;
 
   /// Abstract model that define the model this initialize
   /// the caching system. For every extend of this class
   /// it will add to the cache bucket when instantiating.
-  Model() {
-    this.addToCache(this);
+  /// Please beware that [timestamp] if null, it will
+  /// be default time as now, when this object is created.
+  Model({@required String id, DateTime timestamp}) {
+    _setId(id);
+    setTimestamp(timestamp ?? DateTime.now());
   }
 
   /// Create a model from JSON map.
-  Model.fromJson(Map json) {
-    this.addToCache(this);
+  Model.fromJson(Map json, {String id}) {
+    _setId(id ?? json['id']);
   }
 
   /// Create JSON map from this model.
@@ -33,18 +39,18 @@ abstract class Model with CacheSystem {
   }
 
   /// This id can only be set once, if id already exist
-  /// it will not overwrite. You can do [super.id] or [setId]
+  /// it will not overwrite. You can do [super.id] or [_setId]
   /// which is the exact same thing.
-  set id(String val) {
-    assert(_id == null);
+  void _setId(String val) {
+    assert(
+        val != null,
+        '\n__________________________________________________\n' +
+            'One of the model is missing an ID. When extending a model, ' +
+            'initialized ID with super(id: "someUniqueId")' +
+            '\n__________________________________________________\n');
     if (_id != null) return;
     _id = val;
   }
-
-  /// This id can only be set once, if id already exist
-  /// it will not overwrite. You can do [super.id] or [setId]
-  /// which is the exact same thing.
-  void setId(String val) => this.id = val;
 
   /* -------------------------------- Timestamp ------------------------------- */
 
@@ -60,17 +66,18 @@ abstract class Model with CacheSystem {
   /// You can only set the timestamp model once.
   /// You can do [setTimestamp] or [timestamp] which
   /// is the exact same thing.
-  set timestamp(DateTime val) {
-    assert(_timestamp == null);
-    if (_timestamp != null) return;
-    _timestamp = val;
-  }
+  set timestamp(DateTime val) => setTimestamp(val);
 
   /// Set the timestamp of when the model was created.
   /// You can only set the timestamp model once.
   /// You can do [setTimestamp] or [timestamp] which
   /// is the exact same thing.
-  void setTimestamp(DateTime val) => this.timestamp = val;
+  void setTimestamp(DateTime val) {
+    assert(_timestamp == null,
+        'The setTimestamp() function should only be called once.');
+    if (_timestamp != null) return;
+    _timestamp = val;
+  }
 
   /* --------------------------------- Others --------------------------------- */
 
@@ -130,8 +137,8 @@ class CacheSystem {
   /// can retrieve the cache back from
   /// from by using [getFromCache] function.
   /// You can add tot cache while setting the model
-  /// an ID with [setId] parameter, this will
-  /// call [setId] function.
+  /// an ID with [_setId] parameter, this will
+  /// call [_setId] function.
   void addToCache<T>(T model) {
     if (model == null) return;
     _cache[model.hashCode] = model;

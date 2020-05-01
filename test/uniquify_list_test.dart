@@ -4,9 +4,7 @@ import '../lib/src/model/model.dart';
 
 class Foo extends Model {
   final String data;
-  Foo(String id, this.data) {
-    setId(id);
-  }
+  Foo(String id, this.data) : super(id: id);
 
   @override
   Map toJson() => {'id': this.id, "data": this.data};

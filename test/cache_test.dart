@@ -1,13 +1,22 @@
 import 'package:dart_util/dart_util.dart';
 import '../lib/src/model/model.dart';
 
-class ModelTest1 extends Model {
+class ModelWithCache extends Model with CacheSystem {
+  ModelWithCache({String id}) : super(id: id) {
+    addToCache(this);
+  }
+
+  @override
+  Map toJson() => {id: this.id};
+}
+
+class ModelTest1 extends ModelWithCache {
   final String data;
   final String name;
 
-  ModelTest1(this.data) : this.name = 'ModelTest1' {
-    setId(super.uniqueIdForDummy);
-  }
+  ModelTest1(this.data)
+      : this.name = 'ModelTest1',
+        super(id: Model.uniqueIdForDummy);
 
   @override
   Map<String, dynamic> toJson() {
@@ -32,12 +41,12 @@ class ModelTest1 extends Model {
   }
 }
 
-class ModelTest2 extends Model {
+class ModelTest2 extends ModelWithCache {
   final String data;
   final String name;
-  ModelTest2(this.data) : this.name = 'ModelTest2' {
-    setId(super.uniqueIdForDummy);
-  }
+  ModelTest2(this.data)
+      : this.name = 'ModelTest2',
+        super(id: Model.uniqueIdForDummy);
 
   @override
   Map<String, dynamic> toJson() {
