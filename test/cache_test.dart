@@ -2,12 +2,12 @@ import 'package:dart_util/dart_util.dart';
 import '../lib/src/model/model.dart';
 
 class ModelWithCache extends Model with CacheSystem {
-  ModelWithCache({String id}) : super(id: id) {
+  ModelWithCache({String id}) : super(id) {
     addToCache(this);
   }
 
   @override
-  Map toJson() => {id: this.id};
+  Map<String, dynamic> toJson() => {id: this.id};
 }
 
 class ModelTest1 extends ModelWithCache {

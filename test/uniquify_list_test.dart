@@ -4,10 +4,10 @@ import '../lib/src/model/model.dart';
 
 class Foo extends Model {
   final String data;
-  Foo(String id, this.data) : super(id: id);
+  Foo(String id, this.data) : super(id);
 
   @override
-  Map toJson() => {'id': this.id, "data": this.data};
+  Map<String, dynamic> toJson() => {'id': this.id, "data": this.data};
 }
 
 class SomeList with UniquifyListModel<Foo> {}

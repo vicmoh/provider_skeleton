@@ -1,5 +1,3 @@
-import 'package:meta/meta.dart';
-
 /// This class is the foundation used to extends
 /// and the generic model where data is being used
 /// for the [ListViewLogic].
@@ -15,18 +13,19 @@ abstract class Model {
   /// it will add to the cache bucket when instantiating.
   /// Please beware that [timestamp] if null, it will
   /// be default time as now, when this object is created.
-  Model({@required String id, DateTime timestamp}) {
+  Model(String id, {DateTime timestamp}) {
     _setId(id);
     setTimestamp(timestamp ?? DateTime.now());
   }
 
   /// Create a model from JSON map.
-  Model.fromJson(Map json, {String id}) {
+  Model.fromJson(Map<String, dynamic> json, {String id}) {
     _setId(id ?? json['id']);
   }
 
   /// Create JSON map from this model.
-  Map toJson();
+  Map<String, dynamic> toJson() =>
+      {id: this.id, 'timestamp': this.timestamp.toIso8601String()};
 
   /* -------------------------------- Model ID -------------------------------- */
 
