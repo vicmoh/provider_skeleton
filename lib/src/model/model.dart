@@ -72,8 +72,11 @@ abstract class Model {
   /// You can do [setTimestamp] or [timestamp] which
   /// is the exact same thing.
   void setTimestamp(DateTime val) {
-    assert(_timestamp == null,
-        'The setTimestamp() function should only be called once.');
+    assert(
+        _timestamp == null,
+        '\n__________________________________________________\n' +
+            'The setTimestamp() function should only be called once.' +
+            '\n__________________________________________________\n');
     if (_timestamp != null) return;
     _timestamp = val;
   }
