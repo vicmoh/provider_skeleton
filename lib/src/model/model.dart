@@ -4,9 +4,9 @@
 abstract class Model {
   /// Get unique id for dummy model.
   /// For each call, id will increment.
-  static String get uniqueIdForDummy =>
-      'uniqueIdForDummy${++_uniqueIdForDummy}';
-  static int _uniqueIdForDummy = 0;
+  static String get uniqueId =>
+      'uniqueId${++_uniqueId}';
+  static int _uniqueId = 0;
 
   /// Abstract model that define the model this initialize
   /// the caching system. For every extend of this class

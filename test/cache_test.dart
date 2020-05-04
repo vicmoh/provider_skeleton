@@ -16,7 +16,7 @@ class ModelTest1 extends ModelWithCache {
 
   ModelTest1(this.data)
       : this.name = 'ModelTest1',
-        super(id: Model.uniqueIdForDummy);
+        super(id: Model.uniqueId);
 
   @override
   Map<String, dynamic> toJson() {
@@ -46,7 +46,7 @@ class ModelTest2 extends ModelWithCache {
   final String name;
   ModelTest2(this.data)
       : this.name = 'ModelTest2',
-        super(id: Model.uniqueIdForDummy);
+        super(id: Model.uniqueId);
 
   @override
   Map<String, dynamic> toJson() {
