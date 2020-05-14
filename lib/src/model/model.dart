@@ -4,8 +4,7 @@
 abstract class Model {
   /// Get unique id for dummy model.
   /// For each call, id will increment.
-  static String get uniqueId =>
-      'uniqueId${++_uniqueId}';
+  static String get uniqueId => 'uniqueId${++_uniqueId}';
   static int _uniqueId = 0;
 
   /// Abstract model that define the model this initialize

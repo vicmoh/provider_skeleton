@@ -41,6 +41,7 @@ class _WatchStateState<T extends ViewLogic> extends State<WatchState<T>> {
   @override
   void initState() {
     super.initState();
+    WidgetsFlutterBinding.ensureInitialized();
     _model = this.widget.logic ?? Logics.getIt<T>();
     _model?.initContext(context);
     Future.microtask(() {
