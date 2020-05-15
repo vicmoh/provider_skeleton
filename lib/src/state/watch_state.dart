@@ -41,11 +41,11 @@ class _WatchStateState<T extends ViewLogic> extends State<WatchState<T>> {
   @override
   void initState() {
     super.initState();
-    WidgetsFlutterBinding.ensureInitialized();
-    _model = this.widget.logic ?? Logics.getIt<T>();
-    _model?.initContext(context);
+    // WidgetsFlutterBinding.ensureInitialized();
     Future.microtask(() {
       if (this.widget.onReady != null) this.widget.onReady(_model);
+      _model = this.widget.logic ?? Logics.getIt<T>();
+      _model?.initContext(context);
     });
   }
 
@@ -56,7 +56,7 @@ class _WatchStateState<T extends ViewLogic> extends State<WatchState<T>> {
 
   @override
   Widget build(BuildContext context) {
-	_model?.initContext(context);
+    _model?.initContext(context);
     return ChangeNotifierProvider<T>.value(
         value: this.widget.logic ?? _model,
         child: Consumer<T>(
