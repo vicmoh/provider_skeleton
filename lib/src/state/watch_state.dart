@@ -42,21 +42,18 @@ class _WatchStateState<T extends ViewLogic> extends State<WatchState<T>> {
   void initState() {
     super.initState();
     _model = this.widget.logic ?? Logics.getIt<T>();
-    _model?.initContext(context);
+    assert(_model != null, 'WatchState(): ViewLogic is not assigned.');
+    _model.initContext(context);
     if (this.widget.onReady != null) this.widget.onReady(_model);
   }
 
   @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    _model.initContext(context);
     return ChangeNotifierProvider<T>.value(
         value: this.widget.logic ?? _model,
         child: Consumer<T>(builder: (context, T model, child) {
-          _model?.initContext(context);
+          _model.initContext(context);
           return this.widget.builder(context, model);
         }));
   }
