@@ -48,7 +48,6 @@ class _WatchStateState<T extends ViewLogic> extends State<WatchState<T>> {
 
   @override
   void dispose() {
-    _model?.dispose();
     super.dispose();
   }
 
@@ -56,9 +55,8 @@ class _WatchStateState<T extends ViewLogic> extends State<WatchState<T>> {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<T>.value(
         value: this.widget.logic ?? _model,
-        child: Consumer<T>(builder: (context, T model, child) {
-          _model?.initContext(context);
-          return this.widget.builder(context, model);
-        }));
+        child: Consumer<T>(
+            builder: (context, T model, child) =>
+                this.widget.builder(context, model)));
   }
 }
