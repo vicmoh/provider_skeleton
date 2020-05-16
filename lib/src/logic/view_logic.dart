@@ -34,7 +34,8 @@ abstract class ViewLogic extends ChangeNotifier {
   /// Get the context of the state.
   BuildContext get context => _context;
   BuildContext _context;
-  void initContext(BuildContext context) => _context = context;
+  void initContext(BuildContext context) =>
+      context == null ? null : _context = context;
 
   /// Set [ViewState].
   /// All data in using this [ViewLogic] will be updated.
