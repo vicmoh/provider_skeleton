@@ -51,7 +51,8 @@ class _WatchStateState<T extends ViewLogic> extends State<WatchState<T>> {
   Widget build(BuildContext context) => ChangeNotifierProvider<T>.value(
       value: this.widget.logic ?? _model,
       child: Consumer<T>(builder: (context, T model, child) {
-        model.initContext(context);
+        _model = model;
+        _model.initContext(context);
         return this.widget.builder(context, model);
       }));
 }
