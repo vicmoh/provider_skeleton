@@ -1,6 +1,6 @@
 name: provider_skeleton
 description: Architecture layout skeleton. 
-version: 0.0.12
+version: 0.0.13
 author: Vicky Mohammad
 homepage: https://github.com/vicmoh/provider_skeleton/
 
@@ -22,7 +22,7 @@ dev_dependencies:
   dart_util:
     git:
       url: git://github.com/vicmoh/dart_util.git
-      ref: v0.01
+      ref: v0.0.7
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

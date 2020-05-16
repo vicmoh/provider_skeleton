@@ -68,11 +68,11 @@ packages:
     dependency: "direct dev"
     description:
       path: "."
-      ref: "v0.01"
-      resolved-ref: c478228bd023b2e1a837594e0edfbdf69a8e3c6e
+      ref: "v0.0.7"
+      resolved-ref: "57b536092295dbd1789461b3b22be7034ddfeec6"
       url: "git://github.com/vicmoh/dart_util.git"
     source: git
-    version: "0.0.1"
+    version: "0.0.7"
   flutter:
     dependency: "direct main"
     description: flutter
