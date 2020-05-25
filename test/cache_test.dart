@@ -1,5 +1,5 @@
-import 'package:dart_util/dart_util.dart';
 import '../lib/src/model/model.dart';
+import '../lib/src/model/cache_system.dart';
 
 class ModelWithCache extends Model with CacheSystem {
   ModelWithCache({String id}) : super(id) {
@@ -69,20 +69,4 @@ class ModelTest2 extends ModelWithCache {
   String toString() {
     return this.toJson().toString();
   }
-}
-
-void cacheTest() {
-  Test<Model, Model>.batch(
-      description: 'Testing caching system.',
-      inputs: [
-        ModelTest1('bro 1'),
-        ModelTest1('bro 2'),
-        ModelTest2('bro 3'),
-      ],
-      expectations: [
-        ModelTest1('bro 1'),
-        ModelTest1('bro 2'),
-        ModelTest2('bro 3'),
-      ],
-      test: (input, expect) => input == expect);
 }

@@ -22,7 +22,7 @@ dev_dependencies:
   dart_util:
     git:
       url: git://github.com/vicmoh/dart_util.git
-      ref: v0.0.7
+      ref: v0.0.8
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

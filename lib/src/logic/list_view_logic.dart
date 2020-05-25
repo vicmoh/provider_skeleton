@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:provider_skeleton/src/model/model.dart';
 import 'view_logic.dart';
+import '../model/uniquify_list_model.dart';
 
 /// This file one of the main foundation
 /// where it is used for creating the list view
@@ -21,22 +22,13 @@ abstract class ListViewLogic<T extends Model> extends ViewLogic {
       fromListener == null ? null : _subscription = fromListener;
   StreamSubscription _subscription;
 
-  /// The list view model data that is still in memory.
-  Map<String, T> _cache = {};
-
-  /// Get the list of data for the list view.
-  List<T> get items => _items ?? [];
-  List<T> _items = [];
+  /// A list that will uniquify the model.
+  UniquifyListModel _list = UniquifyListModel<T>();
 
   /// Add data to list of items for list view.
   void addItems(List<T> data) {
     if (data == null) return;
-    for (Model each in data) {
-      if (each == null) continue;
-      if (_cache.containsKey(each.id)) continue;
-      _cache[each.id] = each;
-      _items.insert(0, each);
-    }
+    _list.addItems(data);
     refresh();
   }
 
@@ -44,9 +36,7 @@ abstract class ListViewLogic<T extends Model> extends ViewLogic {
   /// for the list view
   void replaceItems(List<T> data) {
     if (data == null) return;
-    _cache.clear();
-    _items.clear();
-    addItems(data);
+    _list.replaceItems(data);
     refresh();
   }
 

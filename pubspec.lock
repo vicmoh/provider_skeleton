@@ -43,13 +43,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.14.12"
-  colorize:
-    dependency: transitive
-    description:
-      name: colorize
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.0"
   convert:
     dependency: transitive
     description:
@@ -68,11 +61,11 @@ packages:
     dependency: "direct dev"
     description:
       path: "."
-      ref: "v0.0.7"
-      resolved-ref: "57b536092295dbd1789461b3b22be7034ddfeec6"
+      ref: "v0.0.8"
+      resolved-ref: a4e38375205f45a45c26fe669cab0fc1d28a6173
       url: "git://github.com/vicmoh/dart_util.git"
     source: git
-    version: "0.0.7"
+    version: "0.0.8"
   flutter:
     dependency: "direct main"
     description: flutter
