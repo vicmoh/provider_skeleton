@@ -7,6 +7,30 @@ import 'view_logic.dart';
 /// and setup the model which will be provided
 /// through the widget tree
 class Logics {
+  /// Create a store of a logic. Must dispose the store.
+  static void createStore(String name, ViewLogic logic) {
+    if (_store[name] != null) {
+      assert(
+          true,
+          "The store ($name) already exist. " +
+              "Create store that is available instead.");
+      disposeStore(name);
+    }
+    _store[name] = logic;
+  }
+
+  /// Get view logic store.
+  static ViewLogic getStore(String name) => _store[name];
+  static Map<String, ViewLogic> _store = {};
+
+  /// Dispose the logic from store.
+  static disposeStore(String name) {
+    if (_store[name] != null) {
+      _store[name]?.dispose();
+      _store[name] = null;
+    }
+  }
+
   /// Allows you to register the class type and request it
   // from anywhere where you have access to the container.
   static GetIt get getIt => _getIt;
