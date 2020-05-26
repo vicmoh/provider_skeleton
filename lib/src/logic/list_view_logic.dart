@@ -25,6 +25,9 @@ abstract class ListViewLogic<T extends Model> extends ViewLogic {
   /// A list that will uniquify the model.
   UniquifyListModel _list = UniquifyListModel<T>();
 
+  /// Get the list of data for th list view.
+  List<T> get items => _list.items;
+
   /// Add data to list of items for list view.
   void addItems(List<T> data) {
     if (data == null) return;

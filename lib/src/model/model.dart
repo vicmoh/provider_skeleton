@@ -114,7 +114,8 @@ abstract class Model {
           _consoleMessage(
               'The setTimestamp() function should only be called once.'));
       if (_timestamp != null)
-        throw Exception(_consoleMessage( 'Model timestamp can only be set onces.');
+        throw Exception(
+            _consoleMessage('Model timestamp can only be set onces.'));
     }
     if (_timestamp != null) return;
     _timestamp = val;
