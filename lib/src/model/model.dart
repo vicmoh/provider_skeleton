@@ -80,6 +80,8 @@ abstract class Model {
         throw Exception(_consoleMessage(
             'One of the model ID is null. ID of model cannot be null.'));
     }
+    assert(_id == null,
+        _consoleMessage('Warning setId() should not be called twice.'));
     if (_id != null) return;
     _id = val;
   }
