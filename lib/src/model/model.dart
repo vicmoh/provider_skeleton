@@ -27,10 +27,9 @@ abstract class Model {
   /// Please beware that [timestamp] if null, it will
   /// be default time as now, when this object is created.
   Model(String id, {@required DateTime timestamp}) {
-    assert(
-        timestamp != null,
-        _assertMessage('One of the model is missing a timestamp. ' +
-            'Make sure to initialize on super().'));
+    if (timestamp == null)
+      throw Exception('One of the model is missing a timestamp. ' +
+          'Make sure to initialize on super().');
     _setId(id);
     setTimestamp(timestamp ?? DateTime.now());
   }
