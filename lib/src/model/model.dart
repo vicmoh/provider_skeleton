@@ -34,7 +34,7 @@ abstract class Model {
     if (modelType == ModelType.safe && id == null)
       throw Exception(_consoleMessage('One of the model is missing an ID. ' +
           'Make sure to initialize on super().'));
-    _setId(id);
+    setId(id);
     setTimestamp(timestamp ?? DateTime.now());
   }
 
@@ -43,13 +43,13 @@ abstract class Model {
   /// null at the start.
   Model.unsafe({String id, DateTime timestamp})
       : _modelType = ModelType.unsafe {
-    _setId(id);
+    setId(id);
     setTimestamp(timestamp);
   }
 
   /// Create a model from JSON map.
   Model.fromJson(Map<String, dynamic> json, {String id}) {
-    _setId(id ?? json['id']);
+    setId(id ?? json['id']);
   }
 
   /// Create JSON map from this model.
@@ -67,9 +67,9 @@ abstract class Model {
   }
 
   /// This id can only be set once, if id already exist
-  /// it will not overwrite. You can do [super.id] or [_setId]
+  /// it will not overwrite. You can do [super.id] or [setId]
   /// which is the exact same thing.
-  void _setId(String val) {
+  void setId(String val) {
     if (modelType == ModelType.safe) {
       assert(
           val != null,
