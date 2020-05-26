@@ -11,7 +11,7 @@ abstract class Model {
   ModelType _modelType = ModelType.safe;
 
   /// Create a assert message.
-  String _assertMessage(String val) =>
+  String _consoleMessage(String val) =>
       '\n__________________________________________________\n' +
       val +
       '\n__________________________________________________\n';
@@ -27,9 +27,13 @@ abstract class Model {
   /// Please beware that [timestamp] if null, it will
   /// be default time as now, when this object is created.
   Model(String id, {@required DateTime timestamp}) {
-    if (timestamp == null)
-      throw Exception('One of the model is missing a timestamp. ' +
-          'Make sure to initialize on super().');
+    if (modelType == ModelType.safe && timestamp == null)
+      throw Exception(_consoleMessage(
+          'One of the model is missing a timestamp. ' +
+              'Make sure to initialize on super().'));
+    if (modelType == ModelType.safe && id == null)
+      throw Exception(_consoleMessage('One of the model is missing an ID. ' +
+          'Make sure to initialize on super().'));
     _setId(id);
     setTimestamp(timestamp ?? DateTime.now());
   }
@@ -69,12 +73,12 @@ abstract class Model {
     if (modelType == ModelType.safe) {
       assert(
           val != null,
-          _assertMessage(
+          _consoleMessage(
               'One of the model is missing an ID. When extending a model, ' +
                   'initialized ID with super(id: "someUniqueId")'));
       if (val == null)
-        throw Exception(
-            'One of the model ID is null. ID of model cannot be null.');
+        throw Exception(_consoleMessage(
+            'One of the model ID is null. ID of model cannot be null.'));
     }
     if (_id != null) return;
     _id = val;
@@ -107,10 +111,10 @@ abstract class Model {
     if (modelType == ModelType.safe) {
       assert(
           _timestamp == null,
-          _assertMessage(
+          _consoleMessage(
               'The setTimestamp() function should only be called once.'));
       if (_timestamp != null)
-        throw Exception('Model timestamp can only be set onces.');
+        throw Exception(_consoleMessage( 'Model timestamp can only be set onces.');
     }
     if (_timestamp != null) return;
     _timestamp = val;
