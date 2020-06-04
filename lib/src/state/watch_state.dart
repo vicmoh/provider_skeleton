@@ -29,25 +29,12 @@ class WatchState<T extends ViewLogic> extends StatefulWidget {
   /// This is used for watching the state of the [ViewLogic].
   /// Any widgets under the  builder will be watch for refresh,
   /// when [setState] is called in [ViewLogic]
-  ///
-  /// Use WatchState from logic or from store instead.
-  @deprecated
   WatchState({
     @required this.builder,
     this.onReady,
     this.logic,
     this.store,
   }) : assert(builder != null);
-
-  /// This is used for watching the state of the [ViewLogic].
-  /// Any widgets under the  builder will be watch for refresh,
-  WatchState.fromLogic(
-    this.logic, {
-    @required this.builder,
-    this.onReady,
-  })  : assert(builder != null),
-        assert(logic != null),
-        this.store = null;
 
   /// This is used for watching the state of the [ViewLogic].
   /// Any widgets under the  builder will be watch for refresh,
