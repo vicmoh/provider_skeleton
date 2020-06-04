@@ -27,4 +27,7 @@ abstract class RouteSystem {
 
   /// Use route system from recent context used.
   RouteSystem.fromRecentContext() : this.context = _recentContext;
+	
+	/// Go back to previous page.
+	void pop() => Navigator.pop(context);
 }
