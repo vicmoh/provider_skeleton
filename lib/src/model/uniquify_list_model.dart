@@ -12,6 +12,9 @@ class UniquifyListModel<T extends Model> {
   List<T> get items => _items ?? [];
   List<T> _items = [];
 
+  /// Get the list of data for th list view.
+  List<T> getItems<T>() => _items ?? [];
+
   /// Add data to list of items for list view.
   void addItems(List<T> data) {
     if (data == null) return;
