@@ -82,6 +82,6 @@ class _WatchStateState<T extends ViewLogic> extends State<WatchState<T>> {
       value: _model,
       child: Consumer<T>(builder: (context, T model, child) {
         _model.initContext(context);
-        return this.widget.builder(context, _model);
+        return this.widget.builder(context, model);
       }));
 }
