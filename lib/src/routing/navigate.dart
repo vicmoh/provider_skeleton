@@ -10,10 +10,9 @@ import 'package:provider_skeleton/src/logic/view_logic.dart';
 ///
 /// For example:
 /// ```dart
-/// void navToHomePage() => Navigate.to(context,
+/// void navToHomePage() => Navigate(context).to(HomeScreen(),
 ///     replaceAsRoot: true,
-///     providers: [PhoneVerificationLogic()],
-///     page: HomeScreen());
+///     providers: [PhoneVerificationLogic()]);
 /// ```
 ///
 /// This class is used to create a navigator
@@ -21,6 +20,9 @@ import 'package:provider_skeleton/src/logic/view_logic.dart';
 /// the descendent tree. By default it is using
 /// the cupertino page route.
 class Navigate {
+  final BuildContext context;
+  Navigate(this.context);
+
   /// Function to navigate.
   /// [providers] is the models being provided to the
   /// descended of the [page] tree.
@@ -28,10 +30,9 @@ class Navigate {
   /// to, the widget must contain scaffold widget.
   /// [replaceAsRoot] replaces the [page] as the root
   /// of the page tree.
-  static Future<void> to(
-    BuildContext context, {
+  Future<void> to(
+    Widget page, {
     List<ViewLogic> providers,
-    @required Widget page,
     bool replaceAsRoot = false,
   }) {
     assert(context != null);
