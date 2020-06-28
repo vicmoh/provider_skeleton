@@ -12,7 +12,7 @@ class WatchState<T extends ViewLogic> extends StatefulWidget {
   /// to be watch. If the view logic request the state
   /// to be updated, the corresponding widget that is being
   /// watch will be updated.
-  final Widget Function(BuildContext context, T model) builder;
+  final Widget Function(T model) builder;
 
   /// The logic model. If this is null.
   /// it will use the global model provided.
@@ -83,6 +83,6 @@ class _WatchStateState<T extends ViewLogic> extends State<WatchState<T>> {
       child: Consumer<T>(builder: (context, T model, child) {
         _model = model;
         _model.initContext(context);
-        return this.widget.builder(context, model);
+        return this.widget.builder(model);
       }));
 }
