@@ -21,13 +21,9 @@ class UniquifyListModel<T extends Model> {
     for (Model each in data) {
       if (each == null) continue;
       if (_cache.containsKey(each.id)) {
-        try {
-          var index = _items.indexOf(each);
-          _items[index] = each;
-          continue;
-        } catch (err) {
-          throw Exception(err);
-        }
+        var index = _items.indexOf(each);
+        _items[index] = each;
+        continue;
       }
       _cache[each.id] = each;
       _items.insert(0, each);
