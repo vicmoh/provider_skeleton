@@ -16,7 +16,10 @@ class UniquifyListModel<T extends Model> {
   List<T> getItems<T>() => _items ?? [];
 
   /// Add data to list of items for list view.
-  void addItems(List<T> data) {
+  void addItems(
+    List<T> data, {
+    int Function(T, T) orderBy = Model.orderByRecent,
+  }) {
     if (data == null) return;
     for (Model each in data) {
       if (each == null) continue;
@@ -26,18 +29,21 @@ class UniquifyListModel<T extends Model> {
         continue;
       }
       _cache[each.id] = each;
-      _items.insert(0, each);
+      _items.add(each);
     }
-    _items.sort(Model.orderByRecent);
+    if (orderBy != null) _items.sort(orderBy);
   }
 
   /// Replace the whole data with a new list of items
   /// for the list view
-  void replaceItems(List<T> data) {
+  void replaceItems(
+    List<T> data, {
+    int Function(T, T) orderBy = Model.orderByRecent,
+  }) {
     if (data == null) return;
     _cache.clear();
     _items.clear();
     addItems(data);
-    _items.sort(Model.orderByRecent);
+    if (orderBy != null) _items.sort(orderBy);
   }
 }
