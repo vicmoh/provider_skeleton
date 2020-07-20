@@ -6,7 +6,7 @@ import './model.dart';
 /// list, don't add them.
 class UniquifyListModel<T extends Model> {
   /// The list view model data that is still in memory.
-  Map<String, T> _cache = {};
+  Map<String, T> _localCache = {};
 
   /// Get the list of data for th list view.
   List<T> get items => _items ?? [];
@@ -16,17 +16,21 @@ class UniquifyListModel<T extends Model> {
   List<T> getItems<T>() => _items ?? [];
 
   /// Add data to list of items for list view.
-  void addItems(List<T> data) {
+  /// [atStart] appends the item to the beginning of the list.
+  void addItems(List<T> data, {bool atStart = false}) {
     if (data == null) return;
     for (Model each in data) {
       if (each == null) continue;
-      if (_cache.containsKey(each.id)) {
+      if (_localCache.containsKey(each.id)) {
         var index = _items.indexOf(each);
         _items[index] = each;
         continue;
       }
-      _cache[each.id] = each;
-      _items.insert(0, each);
+      _localCache[each.id] = each;
+      if (atStart)
+        _items.insert(0, each);
+      else
+        _items.add(each);
     }
   }
 
@@ -34,7 +38,7 @@ class UniquifyListModel<T extends Model> {
   /// for the list view
   void replaceItems(List<T> data) {
     if (data == null) return;
-    _cache.clear();
+    _localCache.clear();
     _items.clear();
     addItems(data);
   }
