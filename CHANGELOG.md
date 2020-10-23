@@ -1,8 +1,8 @@
 ## [0.0.20] - 10/22/20
 
-* [UniquefyListModel] no longer sort after
-new items are added. Items will be sorted
-before added to the list.
+* [UniquefyListModel] breaking changes.
+* Added changes [oderBy] by [init] function.
+* Added presort option on [init].
 
 ## [0.0.19] - 10/22/20
 
