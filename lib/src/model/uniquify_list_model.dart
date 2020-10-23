@@ -21,6 +21,8 @@ class UniquifyListModel<T extends Model> {
     int Function(T, T) orderBy,
   }) {
     if (data == null) return;
+    if (orderBy != null) data.sort(orderBy);
+
     for (var each in data) {
       if (each == null) continue;
       if (_cache.containsKey(each.id)) {
@@ -31,7 +33,6 @@ class UniquifyListModel<T extends Model> {
       _cache[each.id] = each;
       _items.add(each);
     }
-    if (orderBy != null) _items.sort(orderBy);
   }
 
   /// Replace the whole data with a new list of items
@@ -43,7 +44,6 @@ class UniquifyListModel<T extends Model> {
     if (data == null) return;
     _cache.clear();
     _items.clear();
-    addItems(data);
-    if (orderBy != null) _items.sort(orderBy);
+    this.addItems(data, orderBy: orderBy);
   }
 }
