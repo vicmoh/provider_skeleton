@@ -18,10 +18,10 @@ class UniquifyListModel<T extends Model> {
   /// Add data to list of items for list view.
   void addItems(
     List<T> data, {
-    int Function(T, T) orderBy = Model.orderByRecent,
+    int Function(T, T) orderBy,
   }) {
     if (data == null) return;
-    for (Model each in data) {
+    for (var each in data) {
       if (each == null) continue;
       if (_cache.containsKey(each.id)) {
         var index = _items.indexOf(each);
@@ -38,7 +38,7 @@ class UniquifyListModel<T extends Model> {
   /// for the list view
   void replaceItems(
     List<T> data, {
-    int Function(T, T) orderBy = Model.orderByRecent,
+    int Function(T, T) orderBy,
   }) {
     if (data == null) return;
     _cache.clear();
