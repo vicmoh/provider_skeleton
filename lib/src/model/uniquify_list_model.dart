@@ -37,8 +37,7 @@ class UniquifyListModel<T extends Model> {
   /// Add data to list of items for list view.
   void addItems(List<T> data) {
     if (data == null) return;
-    if (_presortOnItemsAdded && orderBy != null) 
-      data.sort(orderBy);
+    if (_presortOnItemsAdded && orderBy != null) data.sort(orderBy);
 
     for (var each in data) {
       if (each == null) continue;
@@ -51,8 +50,7 @@ class UniquifyListModel<T extends Model> {
       _items.add(each);
     }
 
-    if (!_presortOnItemsAdded && orderBy != null) 
-      data.sort(orderBy);
+    if (!_presortOnItemsAdded && orderBy != null) data.sort(orderBy);
   }
 
   /// Replace the whole data with a new list of items
