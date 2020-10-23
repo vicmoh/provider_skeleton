@@ -50,7 +50,7 @@ class UniquifyListModel<T extends Model> {
       _items.add(each);
     }
 
-    if (!_presortOnItemsAdded && orderBy != null) data.sort(orderBy);
+    if (!_presortOnItemsAdded && orderBy != null) _items.sort(orderBy);
   }
 
   /// Replace the whole data with a new list of items
