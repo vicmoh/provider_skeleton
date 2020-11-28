@@ -1,3 +1,10 @@
+## [0.0.21] - 11/28/20
+
+* [UniquefyListModel] bug fix on presort newly add items
+where it would presort previous data to to pointing 
+to same pointer. Fix by copying new list to be added.
+* Update dart util package.
+
 ## [0.0.20] - 10/22/20
 
 * [UniquefyListModel] breaking changes.

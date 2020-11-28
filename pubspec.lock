@@ -47,11 +47,11 @@ packages:
     dependency: "direct dev"
     description:
       path: "."
-      ref: "v0.0.8"
-      resolved-ref: a4e38375205f45a45c26fe669cab0fc1d28a6173
+      ref: "v0.0.12"
+      resolved-ref: "8d10b59a9aef34a8c037987cd96726c9a96e1abc"
       url: "git://github.com/vicmoh/dart_util.git"
     source: git
-    version: "0.0.8"
+    version: "0.0.12"
   fake_async:
     dependency: transitive
     description:

@@ -13,5 +13,5 @@ dependencies:
   provider_skeleton:
     git:
       url: git://github.com/vicmoh/provider_skeleton.git
-      ref: v0.0.20
+      ref: v0.0.21
 ```
