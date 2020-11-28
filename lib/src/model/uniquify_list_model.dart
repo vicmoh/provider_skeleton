@@ -37,9 +37,10 @@ class UniquifyListModel<T extends Model> {
   /// Add data to list of items for list view.
   void addItems(List<T> data) {
     if (data == null) return;
-    if (_presortOnItemsAdded && orderBy != null) data.sort(orderBy);
+    final newData = List<T>.from(data ?? []);
+    if (_presortOnItemsAdded && orderBy != null) newData.sort(orderBy);
 
-    for (var each in data) {
+    for (var each in newData) {
       if (each == null) continue;
       if (_cache.containsKey(each.id)) {
         var index = _items.indexOf(each);
