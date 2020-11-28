@@ -31,7 +31,7 @@ class UniquifyListModel<T extends Model> {
     bool presortOnItemsAdded = false,
   }) {
     _orderBy = orderBy;
-    _presortOnItemsAdded = _presortOnItemsAdded ?? false;
+    _presortOnItemsAdded = presortOnItemsAdded ?? false;
   }
 
   /// Add data to list of items for list view.
