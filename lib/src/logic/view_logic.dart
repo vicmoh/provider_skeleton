@@ -8,6 +8,14 @@ import 'package:flutter/material.dart';
 enum ViewState { asLoading, asComplete, asError }
 
 abstract class ViewLogic extends ChangeNotifier {
+  /// Determine if this change notifier has been initialize.
+  bool get isInit => _isInit;
+  bool _isInit = false;
+
+  /// Determine if this change notifier has been disposed.
+  bool get isDispose => _isDispose;
+  bool _isDispose = false;
+
   /// This is class model that is used as the view model.
   /// View models are extended with [ViewLogic].
   ViewLogic() {
@@ -16,10 +24,13 @@ abstract class ViewLogic extends ChangeNotifier {
 
   /// The initial state of the view logic
   /// when the the logic first created.
-  void initState() {}
+  void initState() {
+    _isInit = true;
+  }
 
   @override
   void dispose() {
+    _isDispose = true;
     super.dispose();
   }
 
