@@ -9,12 +9,12 @@ enum ViewState { asLoading, asComplete, asError }
 
 abstract class ViewLogic extends ChangeNotifier {
   /// Determine if this change notifier has been initialize.
-  bool get isInit => _isInit;
-  bool _isInit = false;
+  bool get isInitialized => _isInitialized;
+  bool _isInitialized = false;
 
   /// Determine if this change notifier has been disposed.
-  bool get isDispose => _isDispose;
-  bool _isDispose = false;
+  bool get isDisposed => _isDisposed;
+  bool _isDisposed = false;
 
   /// This is class model that is used as the view model.
   /// View models are extended with [ViewLogic].
@@ -25,12 +25,12 @@ abstract class ViewLogic extends ChangeNotifier {
   /// The initial state of the view logic
   /// when the the logic first created.
   void initState() {
-    _isInit = true;
+    _isInitialized = true;
   }
 
   @override
   void dispose() {
-    _isDispose = true;
+    _isDisposed = true;
     super.dispose();
   }
 
