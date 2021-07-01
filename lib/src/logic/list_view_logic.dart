@@ -42,9 +42,4 @@ abstract class ListViewLogic<T extends Model> extends ViewLogic {
     _list.replaceItems(data);
     refresh();
   }
-
-  /// Function for fetching the data.
-  /// If [isNext] is true, [addItems].
-  /// If [isNext] is false, [replaceItems].
-  Future<void> fetch({bool isNext = false});
 }
